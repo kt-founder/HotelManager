@@ -1,5 +1,6 @@
 package com.example.myapp.Activities;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -12,6 +13,7 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import com.example.myapp.Activities.ui.usershome.userHomeActivity;
 import com.example.myapp.R;
 
 public class MainActivity extends AppCompatActivity {
@@ -34,6 +36,12 @@ public class MainActivity extends AppCompatActivity {
 
         reg_success.setVisibility(View.GONE);
         // Set up
-
+       bt_signIn.setOnClickListener(new View.OnClickListener() {
+           @Override
+           public void onClick(View v) {
+               Intent a=new Intent(MainActivity.this, userHomeActivity.class);
+              startActivity(a);
+           }
+       });
     }
 }
