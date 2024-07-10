@@ -13,18 +13,35 @@
         android:theme="@style/Theme.MyApp"
         tools:targetApi="31">
         <activity
+            android:name=".Activities.ui.adminhome.AdminProfileActivity"
+            android:exported="false" />
+        <activity
+            android:name=".Activities.ui.adminhome.AdminHomeActivity"
+            android:exported="false" />
+        <activity
+            android:name=".Activities.ui.usershome.DetailReservationActivity"
+            android:exported="false" />
+        <activity
+            android:name=".Activities.ui.usershome.GuestReservationListActivity"
+            android:exported="false" />
+        <activity
+            android:name=".Activities.ui.usershome.PendingRoomActivity"
+            android:exported="false" />
+        <activity
+            android:name=".Activities.ui.usershome.GuestReservationActivity"
+            android:exported="false" />
+        <activity
             android:name=".Activities.ui.usershome.userHomeActivity"
             android:exported="false" />
         <activity
             android:name=".Activities.MainActivity"
-            android:exported="true" >
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
     </application>
 
 </manifest>

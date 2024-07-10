@@ -1,4 +1,4 @@
-package com.example.myapp.Activities.ui.usershome;
+package com.example.myapp.Activities.ui.adminhome;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -15,20 +15,40 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import com.example.myapp.Activities.MainActivity;
 import com.example.myapp.R;
 
-public class viewProfile extends AppCompatActivity {
-    private Button modify,home,logout;
-    private EditText pro_user,pro_pwd,pro_first,pro_last,pro_staddr,pro_city,pro_state,pro_zip,pro_email,pro_phone,pro_cname,pro_cnum,pro_cexp,pro_role;
-    private Spinner pro_ctype;
-    private TextView pro_name;
-    private SharedPreferences sharedpreferences;
+public class AdminProfileActivity extends AppCompatActivity {
+    Button home,logout;
+    EditText pro_user,pro_pwd,pro_first,pro_last,pro_staddr,pro_city,pro_state,pro_zip,pro_email,pro_phone,pro_cname,pro_cnum,pro_cexp,pro_role;
+    Spinner pro_ctype;
+    TextView pro_name;
+    SharedPreferences sharedpreferences;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
-        setContentView(R.layout.activity_view_profile);
+        setContentView(R.layout.activity_admin_profile);
 
+        detailId();
+        home.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(AdminProfileActivity.this,AdminHomeActivity.class));
+            }
+        });
+
+        logout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(AdminProfileActivity.this, MainActivity.class));
+            }
+        });
+
+
+    }
+
+    private void detailId() {
         pro_name = findViewById(R.id.pro_name);
         pro_user = findViewById(R.id.pro_user);
         pro_pwd = findViewById(R.id.pro_pwd);
@@ -40,19 +60,5 @@ public class viewProfile extends AppCompatActivity {
         pro_zip = findViewById(R.id.pro_zip);
         pro_email = findViewById(R.id.pro_email);
         pro_phone = findViewById(R.id.pro_phone);
-        pro_cname = findViewById(R.id.pro_cname);
-        pro_ctype = findViewById(R.id.pro_ctype);
-        pro_cnum = findViewById(R.id.pro_cnum);
-        pro_cexp = findViewById(R.id.pro_cexp);
-        modify = findViewById(R.id.pro_modify);
-        home = findViewById(R.id.guestViewHome);
-        logout = findViewById(R.id.guestViewLogout);
-
-        home.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(viewProfile.this,userHomeActivity.class);
-            }
-        });
     }
 }

@@ -1,0 +1,228 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Activities.ui.usershome.DetailReservationActivity"
+    android:orientation="vertical"
+    >
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+
+        >
+        <Button
+            android:id="@+id/button_home"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="30dp"
+            android:text="Home"
+             />
+
+        <Button
+            android:id="@+id/button_logout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="150dp"
+            android:text="Logout"
+            />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
+        android:gravity="left"
+        android:text="View Details of Specific Reservation"
+        android:textColor="#1E90FF"
+        android:textSize="24sp"
+        android:layout_gravity="center"
+        />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fillViewport="true"
+        app:layout_constraintTop_toBottomOf="@+id/textView"
+        app:layout_constraintBottom_toBottomOf="parent"
+        >
+
+        <TableLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginLeft="40dp"
+            android:padding="16dp">
+
+                <!-- Row for Booking ID -->
+            <TableRow>
+
+                <TextView
+                    android:padding="8dp"
+                    android:textColor="#000000"
+                    android:text="Booking ID:"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/textViewBookingID"
+                    android:padding="8dp"
+                    android:textColor="#000000"
+                    android:text="00099123" />
+            </TableRow>
+
+            <!-- Row for First Name -->
+            <TableRow>
+
+                <TextView
+                    android:padding="8dp"
+                    android:textColor="#000000"
+                    android:text="First Name:"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/textViewFirstName"
+                    android:padding="8dp"
+                    android:textColor="#000000"
+                    android:text="Mike" />
+            </TableRow>
+
+            <!-- Row for Last Name -->
+            <TableRow>
+
+                <TextView
+                    android:padding="8dp"
+                    android:text="Last Name:"
+                    android:textColor="#000000"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/textViewLastName"
+                    android:padding="8dp"
+                    android:textColor="#000000"
+                    android:text="John" />
+            </TableRow>
+
+            <!-- Row for Check In Date -->
+            <TableRow>
+
+                <TextView
+                    android:padding="8dp"
+                    android:textColor="#000000"
+                    android:text="Check In Date:"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/textViewCheckInDate"
+                    android:padding="8dp"
+                    android:textColor="#000000"
+                    android:text="07/12/2020" />
+            </TableRow>
+
+            <!-- Row for Check Out Date -->
+            <TableRow>
+
+                <TextView
+                    android:padding="8dp"
+                    android:textColor="#000000"
+                    android:text="Check Out Date:"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/textViewCheckOutDate"
+                    android:padding="8dp"
+                    android:textColor="#000000"
+                    android:text="07/14/2020" />
+            </TableRow>
+
+            <!-- Row for Room Type -->
+            <TableRow>
+
+                <TextView
+                    android:padding="8dp"
+                    android:textColor="#000000"
+                    android:text="Room Type:"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/textViewRoomType"
+                    android:padding="8dp"
+                    android:textColor="#000000"
+                    android:text="Standard" />
+            </TableRow>
+
+            <!-- Row for Number of Rooms -->
+            <TableRow>
+
+                <TextView
+                    android:padding="8dp"
+                    android:textColor="#000000"
+                    android:text="Number of Rooms:"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/textViewNumberOfRooms"
+                    android:padding="8dp"
+                    android:textColor="#000000"
+                    android:text="1" />
+            </TableRow>
+
+            <!-- Row for Number of Adults -->
+            <TableRow>
+
+                <TextView
+                    android:padding="8dp"
+                    android:textColor="#000000"
+                    android:text="Number of Adults:"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/textViewNumberOfAdults"
+                    android:padding="8dp"
+                    android:textColor="#000000"
+                    android:text="1" />
+            </TableRow>
+
+            <!-- Row for Number of Children -->
+            <TableRow>
+
+                <TextView
+                    android:padding="8dp"
+                    android:textColor="#000000"
+                    android:text="Number of Children:"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/textViewNumberOfChildren"
+                    android:padding="8dp"
+                    android:textColor="#000000"
+                    android:text="0" />
+            </TableRow>
+
+            <!-- Row for Total Price -->
+            <TableRow>
+
+                <TextView
+                    android:padding="8dp"
+                    android:text="Total Price:"
+                    android:textColor="#000000"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/textViewTotalPrice"
+                    android:padding="8dp"
+                    android:textColor="#000000"
+                    android:text="$108.25" />
+            </TableRow>
+        </TableLayout>
+    </ScrollView>
+    <Button
+        android:id="@+id/bt_close"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="CLose"
+        />
+</LinearLayout>

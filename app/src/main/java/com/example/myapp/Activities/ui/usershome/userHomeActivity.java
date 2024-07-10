@@ -1,6 +1,8 @@
 package com.example.myapp.Activities.ui.usershome;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
 
 import androidx.activity.EdgeToEdge;
@@ -9,6 +11,7 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import com.example.myapp.Activities.MainActivity;
 import com.example.myapp.R;
 
 public class userHomeActivity extends AppCompatActivity {
@@ -21,9 +24,45 @@ public class userHomeActivity extends AppCompatActivity {
 
         bt_view_profile = findViewById(R.id.user_viewprofile);
         bt_search_room = findViewById(R.id.user_searchroom);
+
         bt_view_pending = findViewById(R.id.user_pending);
         bt_view_reservations = findViewById(R.id.user_reservationSummary);
         bt_logout = findViewById(R.id.manager_logout);
 
+        bt_view_profile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(userHomeActivity.this,viewProfile.class);
+                startActivity(intent);
+            }
+        });
+        bt_search_room.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(userHomeActivity.this,SearchRoomActivity.class);
+                startActivity(intent);
+            }
+        });
+        bt_view_pending.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(userHomeActivity.this,PendingRoomActivity.class);
+                startActivity(intent);
+            }
+        });
+        bt_view_reservations.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(userHomeActivity.this,GuestReservationActivity.class);
+                startActivity(intent);
+            }
+        });
+        bt_logout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(userHomeActivity.this, MainActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 }

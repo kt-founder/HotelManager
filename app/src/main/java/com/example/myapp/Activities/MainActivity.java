@@ -39,8 +39,8 @@ public class MainActivity extends AppCompatActivity {
        bt_signIn.setOnClickListener(new View.OnClickListener() {
            @Override
            public void onClick(View v) {
-               Intent a=new Intent(MainActivity.this, userHomeActivity.class);
-              startActivity(a);
+               Intent a =new Intent(MainActivity.this, userHomeActivity.class);
+               startActivity(a);
            }
        });
     }
