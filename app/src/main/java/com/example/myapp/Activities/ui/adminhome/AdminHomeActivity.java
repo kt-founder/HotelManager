@@ -32,17 +32,17 @@ public class AdminHomeActivity extends AppCompatActivity {
                 startActivity(new Intent(AdminHomeActivity.this,AdminHomeActivity.class));
             }
         });
-        admin_search.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent((AdminHomeActivity.this,searchGusetManager.class));
-            }
-        });
+//        admin_search.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                startActivity(new Intent((AdminHomeActivity.this,searchGusetManager.class));
+//            }
+//        });
 
         admin_logout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent((AdminHomeActivity.this, MainActivity.class));
+                startActivity(new Intent(AdminHomeActivity.this, MainActivity.class));
             }
         });
     }
