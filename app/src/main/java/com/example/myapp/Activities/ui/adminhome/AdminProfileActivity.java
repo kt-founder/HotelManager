@@ -44,7 +44,7 @@ public class AdminProfileActivity extends AppCompatActivity {
                 startActivity(new Intent(AdminProfileActivity.this, MainActivity.class));
             }
         });
-
+        // Test
         // Add
     }
 
