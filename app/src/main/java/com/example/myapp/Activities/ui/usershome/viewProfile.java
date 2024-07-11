@@ -15,6 +15,8 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import com.example.myapp.Activities.MainActivity;
+import com.example.myapp.Activities.entities.Profile;
 import com.example.myapp.R;
 
 public class viewProfile extends AppCompatActivity {
@@ -48,11 +50,79 @@ public class viewProfile extends AppCompatActivity {
         home = findViewById(R.id.guestViewHome);
         logout = findViewById(R.id.guestViewLogout);
 
+        modify = findViewById(R.id.pro_modify);
         home.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(viewProfile.this,userHomeActivity.class);
+                startActivity(intent);
             }
         });
+        logout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(viewProfile.this, MainActivity.class));
+            }
+        });
+        modify.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+    }
+    public void nonEdit()
+    {
+        pro_user.setFocusable(false);
+        pro_pwd.setFocusable(false);
+        pro_first.setFocusable(false);
+        pro_last.setFocusable(false);
+        pro_staddr.setFocusable(false);
+        pro_state.setFocusable(false);
+        pro_city.setFocusable(false);
+        pro_zip.setFocusable(false);
+        pro_email.setFocusable(false);
+        pro_phone.setFocusable(false);
+        pro_cname.setFocusable(false);
+        pro_ctype.setFocusable(false);
+        pro_cnum.setFocusable(false);
+        pro_cexp.setFocusable(false);
+
+    }
+
+    public void edit()
+    {
+        pro_pwd.setFocusableInTouchMode(true);
+        pro_first.setFocusableInTouchMode(true);
+        pro_last.setFocusableInTouchMode(true);
+        pro_staddr.setFocusableInTouchMode(true);
+        pro_state.setFocusableInTouchMode(true);
+        pro_city.setFocusableInTouchMode(true);
+        pro_zip.setFocusableInTouchMode(true);
+        pro_email.setFocusableInTouchMode(true);
+        pro_phone.setFocusableInTouchMode(true);
+        pro_cname.setFocusableInTouchMode(true);
+
+        pro_name.setText("Modify Details");
+    }
+
+    public void setData(Profile profile)
+    {
+        pro_user.setText(profile.getUsername());
+        pro_pwd.setText(profile.getPassword());
+        pro_first.setText(profile.getFirstName());
+        pro_last.setText(profile.getLastName());
+        pro_staddr.setText(profile.getStreetAddress());
+        pro_city.setText(profile.getCity());
+        pro_state.setText(profile.getState());
+        pro_zip.setText(profile.getZipCode());
+        pro_email.setText(profile.getEmail());
+        pro_phone.setText(profile.getPhone());
+        pro_cname.setText(profile.getCreditCardName());
+        pro_cnum.setText(profile.getCreditCardNumber());
+        pro_cexp.setText(profile.getCreditCardExp());
+
+
+
     }
 }

@@ -56,4 +56,8 @@ public class MainActivity extends AppCompatActivity {
            }
        });
     }
+    public void visibleField()
+    {
+        reg_success.setVisibility(View.VISIBLE);
+    }
 }

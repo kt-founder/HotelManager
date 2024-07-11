@@ -29,7 +29,7 @@ public class AdminHomeActivity extends AppCompatActivity {
         admin_view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(AdminHomeActivity.this,AdminHomeActivity.class));
+                startActivity(new Intent(AdminHomeActivity.this,AdminProfileActivity.class));
             }
         });
 //        admin_search.setOnClickListener(new View.OnClickListener() {

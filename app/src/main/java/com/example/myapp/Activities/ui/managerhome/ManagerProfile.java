@@ -1,4 +1,4 @@
-package com.example.myapp.Activities.ui.adminhome;
+package com.example.myapp.Activities.ui.managerhome;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -19,8 +19,8 @@ import com.example.myapp.Activities.MainActivity;
 import com.example.myapp.Activities.entities.Profile;
 import com.example.myapp.R;
 
-public class AdminProfileActivity extends AppCompatActivity {
-    Button home,logout;
+public class ManagerProfile extends AppCompatActivity {
+    Button modify,home,logout;
     EditText pro_user,pro_pwd,pro_first,pro_last,pro_staddr,pro_city,pro_state,pro_zip,pro_email,pro_phone,pro_cname,pro_cnum,pro_cexp,pro_role;
     Spinner pro_ctype;
     TextView pro_name;
@@ -29,38 +29,34 @@ public class AdminProfileActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
-        setContentView(R.layout.activity_admin_profile);
-
+        setContentView(R.layout.activity_manager_profile);
+        // Set Id
         detailId();
+
+        home = findViewById(R.id.guestViewHome);
+        logout = findViewById(R.id.guestViewLogout);
+
+
         home.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(AdminProfileActivity.this,AdminHomeActivity.class));
+                startActivity(new Intent(ManagerProfile.this,ManagerHomeActivity.class));
             }
         });
 
         logout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(AdminProfileActivity.this, MainActivity.class));
+                startActivity(new Intent(ManagerProfile.this, MainActivity.class));
             }
         });
-        // Test
-        // Add
-    }
 
-    private void detailId() {
-        pro_name = findViewById(R.id.pro_name);
-        pro_user = findViewById(R.id.pro_user);
-        pro_pwd = findViewById(R.id.pro_pwd);
-        pro_first = findViewById(R.id.pro_first);
-        pro_last = findViewById(R.id.pro_last);
-        pro_staddr = findViewById(R.id.pro_staddr);
-        pro_city = findViewById(R.id.pro_city);
-        pro_state = findViewById(R.id.pro_state);
-        pro_zip = findViewById(R.id.pro_zip);
-        pro_email = findViewById(R.id.pro_email);
-        pro_phone = findViewById(R.id.pro_phone);
+        modify.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Chinh sua
+            }
+        });
     }
     public void nonEdit()
     {
@@ -76,10 +72,23 @@ public class AdminProfileActivity extends AppCompatActivity {
         pro_phone.setFocusable(false);
 
 
-
     }
 
+    public void edit()
+    {
+        pro_pwd.setFocusableInTouchMode(true);
+        pro_first.setFocusableInTouchMode(true);
+        pro_last.setFocusableInTouchMode(true);
+        pro_staddr.setFocusableInTouchMode(true);
+        pro_state.setFocusableInTouchMode(true);
+        pro_city.setFocusableInTouchMode(true);
+        pro_zip.setFocusableInTouchMode(true);
+        pro_email.setFocusableInTouchMode(true);
+        pro_phone.setFocusableInTouchMode(true);
 
+
+        pro_name.setText("Modify Details");
+    }
 
     public void setData(Profile profile)
     {
@@ -93,7 +102,23 @@ public class AdminProfileActivity extends AppCompatActivity {
         pro_zip.setText(profile.getZipCode());
         pro_email.setText(profile.getEmail());
         pro_phone.setText(profile.getPhone());
+    }
+
+    public void detailId()
+    {
+        pro_name = findViewById(R.id.pro_name);
+        pro_user = findViewById(R.id.pro_user);
+        pro_pwd = findViewById(R.id.pro_pwd);
+        pro_first = findViewById(R.id.pro_first);
+        pro_last = findViewById(R.id.pro_last);
+        pro_staddr = findViewById(R.id.pro_staddr);
+        pro_city = findViewById(R.id.pro_city);
+        pro_state = findViewById(R.id.pro_state);
+        pro_zip = findViewById(R.id.pro_zip);
+        pro_email = findViewById(R.id.pro_email);
+        pro_phone = findViewById(R.id.pro_phone);
 
 
+        modify = findViewById(R.id.pro_modify);
     }
 }
