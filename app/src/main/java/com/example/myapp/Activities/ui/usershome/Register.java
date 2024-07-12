@@ -6,27 +6,24 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
-import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import com.example.myapp.Activities.database.DBContext;
 import com.example.myapp.R;
-import com.example.myapp.Activities.database.DBManager;
-import com.example.myapp.Activities.entities.Registration;
 
 public class Register extends AppCompatActivity {
 
     private EditText regUser, regPwd, regFirst, regLast, regStaddr, regCity, regState, regZip, regEmail, regPhone, regCname, regCnum, regCexp;
     private Spinner regCtype;
     private Button registerButton;
-    private DBManager dbHelper;
+    private DBContext dbContext;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        EdgeToEdge.enable(this);
         setContentView(R.layout.activity_register);
 
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
@@ -52,7 +49,7 @@ public class Register extends AppCompatActivity {
         regCexp = findViewById(R.id.reg_cexp);
         registerButton = findViewById(R.id.register_button);
 
-        dbHelper = new DBManager(this);
+        dbContext = new DBContext(this);
 
         registerButton.setOnClickListener(v -> registerUser());
     }
@@ -74,13 +71,77 @@ public class Register extends AppCompatActivity {
         String creditCardNumber = regCnum.getText().toString();
         String creditCardExp = regCexp.getText().toString();
 
-        // Create a Registration object
-        Registration registration = new Registration(username, password, firstName, lastName, streetAddress, city, state, zipcode, email, phone, creditCardName, creditCardType, creditCardNumber, creditCardExp);
+        if (validateInputs(username, password, firstName, lastName, streetAddress, city, state, zipcode, email, phone, creditCardName, creditCardNumber, creditCardExp)) {
+            dbContext.open();
 
-        // Add record to the database
-        String result = dbHelper.addRecord(registration);
+            // Add record to the database
+            long result = dbContext.insertUser(username, password, firstName, lastName, streetAddress, city, state, zipcode, email, phone, creditCardName, creditCardType, creditCardNumber, creditCardExp);
 
-        // Show the result as a toast
-        Toast.makeText(this, result, Toast.LENGTH_LONG).show();
+            dbContext.close();
+
+            // Show the result as a toast
+            if (result != -1) {
+                Toast.makeText(this, "Registration Successful", Toast.LENGTH_LONG).show();
+                finish();
+            } else {
+                Toast.makeText(this, "Registration Failed", Toast.LENGTH_LONG).show();
+            }
+        }
+    }
+
+    private boolean validateInputs(String username, String password, String firstName, String lastName, String streetAddress, String city, String state, String zipcode, String email, String phone, String creditCardName, String creditCardNumber, String creditCardExp) {
+        if (username.isEmpty()) {
+            regUser.setError("Username is required");
+            return false;
+        }
+        if (password.isEmpty()) {
+            regPwd.setError("Password is required");
+            return false;
+        }
+        if (firstName.isEmpty()) {
+            regFirst.setError("First name is required");
+            return false;
+        }
+        if (lastName.isEmpty()) {
+            regLast.setError("Last name is required");
+            return false;
+        }
+        if (streetAddress.isEmpty()) {
+            regStaddr.setError("Street address is required");
+            return false;
+        }
+        if (city.isEmpty()) {
+            regCity.setError("City is required");
+            return false;
+        }
+        if (state.isEmpty()) {
+            regState.setError("State is required");
+            return false;
+        }
+        if (zipcode.isEmpty()) {
+            regZip.setError("Zip code is required");
+            return false;
+        }
+        if (email.isEmpty()) {
+            regEmail.setError("Email is required");
+            return false;
+        }
+        if (phone.isEmpty()) {
+            regPhone.setError("Phone is required");
+            return false;
+        }
+        if (creditCardName.isEmpty()) {
+            regCname.setError("Name on the credit card is required");
+            return false;
+        }
+        if (creditCardNumber.isEmpty()) {
+            regCnum.setError("Credit card number is required");
+            return false;
+        }
+        if (creditCardExp.isEmpty()) {
+            regCexp.setError("Credit card expiry date is required");
+            return false;
+        }
+        return true;
     }
 }

@@ -6,15 +6,11 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
-import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 
-import com.example.myapp.Activities.database.DBManager;
-import com.example.myapp.Activities.ui.usershome.Register;
+import com.example.myapp.Activities.database.DBContext;
 import com.example.myapp.Activities.ui.usershome.userHomeActivity;
 import com.example.myapp.R;
 
@@ -22,15 +18,13 @@ public class MainActivity extends AppCompatActivity {
 
     Button bt_signIn, bt_Register;
     EditText username, password;
-    TextView reg_success;
+    TextView reg_success, errorMessage;
+    DBContext dbContext;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        EdgeToEdge.enable(this);
         setContentView(R.layout.activity_main);
-//
-//        DBManager dbManager=new DBManager(this);
-//        dbManager.open();
 
         // Init
         bt_signIn = findViewById(R.id.bt_signin);
@@ -38,26 +32,50 @@ public class MainActivity extends AppCompatActivity {
         username = findViewById(R.id.log_username);
         password = findViewById(R.id.log_password);
         reg_success = findViewById(R.id.reg_success);
+        errorMessage = findViewById(R.id.error_message);
+
+        dbContext = new DBContext(this);
+        dbContext.open();
 
         reg_success.setVisibility(View.GONE);
+        errorMessage.setVisibility(View.GONE);
+
         // Set up
-       bt_signIn.setOnClickListener(new View.OnClickListener() {
-           @Override
-           public void onClick(View v) {
-               Intent a =new Intent(MainActivity.this, userHomeActivity.class);
-               startActivity(a);
-           }
-       });
-       bt_Register.setOnClickListener(new View.OnClickListener() {
-           @Override
-           public void onClick(View v) {
-               Intent intent = new Intent(MainActivity.this, Register.class);
-               startActivity(intent);
-           }
-       });
+        bt_signIn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String usernameText = username.getText().toString();
+                String passwordText = password.getText().toString();
+
+                if (usernameText.isEmpty() || passwordText.isEmpty()) {
+                    errorMessage.setText("Please enter both username and password");
+                    errorMessage.setVisibility(View.VISIBLE);
+                } else if (dbContext.checkLogin(usernameText, passwordText)) {
+                    Intent a = new Intent(MainActivity.this, userHomeActivity.class);
+                    startActivity(a);
+                } else {
+                    errorMessage.setText("Invalid username or password");
+                    errorMessage.setVisibility(View.VISIBLE);
+                }
+            }
+        });
+
+        bt_Register.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, com.example.myapp.Activities.ui.usershome.Register.class);
+                startActivity(intent);
+            }
+        });
     }
-    public void visibleField()
-    {
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        dbContext.close();
+    }
+
+    public void visibleField() {
         reg_success.setVisibility(View.VISIBLE);
     }
 }
