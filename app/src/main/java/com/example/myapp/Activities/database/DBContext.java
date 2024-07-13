@@ -86,6 +86,25 @@ public class DBContext {
         int rows = db.update(SQLiteHelper.System_users, contentValues, SQLiteHelper.Username + " = ?", new String[]{username});
         return rows > 0;
     }
+    public boolean updateProfileAdmin(String username, String password, String firstName, String lastName,
+                                      String streetAddress, String city, String state, String zipcode,
+                                      String email, String phone, String creditCardType) {
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(SQLiteHelper.Password, password);
+        contentValues.put(SQLiteHelper.FirstName, firstName);
+        contentValues.put(SQLiteHelper.LastName, lastName);
+        contentValues.put(SQLiteHelper.StreetAddress, streetAddress);
+        contentValues.put(SQLiteHelper.City, city);
+        contentValues.put(SQLiteHelper.State, state);
+        contentValues.put(SQLiteHelper.Zipcode, zipcode);
+        contentValues.put(SQLiteHelper.Email, email);
+        contentValues.put(SQLiteHelper.Phone, phone);
+        contentValues.put(SQLiteHelper.Cctype, creditCardType);
+
+        int rows = db.update(SQLiteHelper.System_users, contentValues, SQLiteHelper.Username + " = ?", new String[]{username});
+        return rows > 0;
+    }
+
 
     public Profile getUser(String username) {
         String[] columns = {

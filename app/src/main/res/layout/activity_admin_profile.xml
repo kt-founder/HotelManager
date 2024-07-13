@@ -11,7 +11,6 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_gravity="center"
-
         tools:ignore="MissingConstraints">
 
         <LinearLayout
@@ -190,6 +189,22 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="20dp" />
 
+            <TextView
+                android:id="@+id/ctypeTxt"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="10dp"
+                android:text="Credit Card Type"
+                android:textColor="#000000"
+                android:textSize="16dp" />
+
+            <Spinner
+                android:id="@+id/pro_ctype"
+                android:layout_width="300dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp" />
+
             <Button
                 android:id="@+id/adminModify"
                 android:layout_width="150dp"
@@ -200,6 +215,7 @@
                 android:backgroundTint="#ff8819"
                 android:text="modify"
                 android:textColor="#ffffff" />
+
             <Button
                 android:id="@+id/adminHome"
                 android:layout_width="150dp"

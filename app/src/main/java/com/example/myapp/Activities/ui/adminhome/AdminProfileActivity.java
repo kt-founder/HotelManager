@@ -1,101 +1,155 @@
 package com.example.myapp.Activities.ui.adminhome;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
-import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 
 import com.example.myapp.Activities.MainActivity;
+import com.example.myapp.Activities.database.DBContext;
 import com.example.myapp.Activities.entities.Profile;
 import com.example.myapp.R;
 
 public class AdminProfileActivity extends AppCompatActivity {
-    Button home,logout;
-    EditText pro_user,pro_pwd,pro_first,pro_last,pro_staddr,pro_city,pro_state,pro_zip,pro_email,pro_phone,pro_cname,pro_cnum,pro_cexp,pro_role;
-    Spinner pro_ctype;
-    TextView pro_name;
-    SharedPreferences sharedpreferences;
+
+    EditText proUser, proPwd, proFirst, proLast, proStAddr, proCity, proState, proZip, proEmail, proPhone;
+    Spinner proCtype;
+    Button proModify, adminHome, adminLogout;
+    TextView errorMessage;
+    DBContext dbContext;
+    String username;
+
+    @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        EdgeToEdge.enable(this);
         setContentView(R.layout.activity_admin_profile);
 
-        home = findViewById(R.id.adminHome);
-        logout =findViewById(R.id.adminLogout);
-        detailId();
-        home.setOnClickListener(new View.OnClickListener() {
+        // Initialize UI components
+        proUser = findViewById(R.id.pro_user);
+        proPwd = findViewById(R.id.pro_pwd);
+        proFirst = findViewById(R.id.pro_first);
+        proLast = findViewById(R.id.pro_last);
+        proStAddr = findViewById(R.id.pro_staddr);
+        proCity = findViewById(R.id.pro_city);
+        proState = findViewById(R.id.pro_state);
+        proZip = findViewById(R.id.pro_zip);
+        proEmail = findViewById(R.id.pro_email);
+        proPhone = findViewById(R.id.pro_phone);
+        proCtype = findViewById(R.id.pro_ctype); // Ensure Spinner is initialized
+        errorMessage = findViewById(R.id.error_message);
+        proModify = findViewById(R.id.adminModify);
+        adminHome = findViewById(R.id.adminHome);
+        adminLogout = findViewById(R.id.adminLogout);
+
+        // Set up spinner
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
+                R.array.credit_card_types, android.R.layout.simple_spinner_item);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        proCtype.setAdapter(adapter); // This line sets the adapter to the Spinner
+
+        dbContext = new DBContext(this);
+        dbContext.open();
+
+        // Get the username from the intent
+        username = getIntent().getStringExtra("username");
+
+        // Load user data
+        loadUserData();
+
+        proModify.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
-                startActivity(new Intent(AdminProfileActivity.this,AdminHomeActivity.class));
+            public void onClick(View v) {
+                updateProfile();
             }
         });
 
-        logout.setOnClickListener(new View.OnClickListener() {
+        adminHome.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
-                startActivity(new Intent(AdminProfileActivity.this, MainActivity.class));
+            public void onClick(View v) {
+                Intent intent = new Intent(AdminProfileActivity.this, AdminHomeActivity.class);
+                startActivity(intent);
             }
         });
-        // Test
-        // Add
+
+        adminLogout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(AdminProfileActivity.this, MainActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 
-    private void detailId() {
-        pro_name = findViewById(R.id.pro_name);
-        pro_user = findViewById(R.id.pro_user);
-        pro_pwd = findViewById(R.id.pro_pwd);
-        pro_first = findViewById(R.id.pro_first);
-        pro_last = findViewById(R.id.pro_last);
-        pro_staddr = findViewById(R.id.pro_staddr);
-        pro_city = findViewById(R.id.pro_city);
-        pro_state = findViewById(R.id.pro_state);
-        pro_zip = findViewById(R.id.pro_zip);
-        pro_email = findViewById(R.id.pro_email);
-        pro_phone = findViewById(R.id.pro_phone);
+    private void loadUserData() {
+        Profile profile = dbContext.getUser(username);
+        if (profile != null) {
+            proUser.setText(profile.getUsername());
+            proPwd.setText(profile.getPassword());
+            proFirst.setText(profile.getFirstName());
+            proLast.setText(profile.getLastName());
+            proStAddr.setText(profile.getStreetAddress());
+            proCity.setText(profile.getCity());
+            proState.setText(profile.getState());
+            proZip.setText(profile.getZipCode());
+            proEmail.setText(profile.getEmail());
+            proPhone.setText(profile.getPhone());
+
+            // Set selected item for Spinner
+            String creditCardType = profile.getCreditCardType();
+            if (creditCardType != null) {
+                for (int i = 0; i < proCtype.getAdapter().getCount(); i++) {
+                    if (creditCardType.equals(proCtype.getAdapter().getItem(i).toString())) {
+                        proCtype.setSelection(i);
+                        break;
+                    }
+                }
+            }
+        } else {
+            errorMessage.setText("User not found");
+            errorMessage.setVisibility(View.VISIBLE);
+        }
     }
-    public void nonEdit()
-    {
-        pro_user.setFocusable(false);
-        pro_pwd.setFocusable(false);
-        pro_first.setFocusable(false);
-        pro_last.setFocusable(false);
-        pro_staddr.setFocusable(false);
-        pro_state.setFocusable(false);
-        pro_city.setFocusable(false);
-        pro_zip.setFocusable(false);
-        pro_email.setFocusable(false);
-        pro_phone.setFocusable(false);
 
+    private void updateProfile() {
+        // Get values from the input fields
+        String password = proPwd.getText().toString();
+        String firstName = proFirst.getText().toString();
+        String lastName = proLast.getText().toString();
+        String streetAddress = proStAddr.getText().toString();
+        String city = proCity.getText().toString();
+        String state = proState.getText().toString();
+        String zipcode = proZip.getText().toString();
+        String email = proEmail.getText().toString();
+        String phone = proPhone.getText().toString();
+        String creditCardType = proCtype.getSelectedItem().toString();
 
+        // Update user data in the database
+        boolean result = dbContext.updateProfileAdmin(username, password, firstName, lastName, streetAddress, city, state, zipcode, email, phone, creditCardType);
 
+        // Show the result as an error message
+        if (result) {
+            errorMessage.setText("Profile updated successfully");
+            errorMessage.setTextColor(getResources().getColor(android.R.color.holo_green_dark));
+            errorMessage.setVisibility(View.VISIBLE);
+        } else {
+            errorMessage.setText("Profile update failed");
+            errorMessage.setTextColor(getResources().getColor(android.R.color.holo_red_dark));
+            errorMessage.setVisibility(View.VISIBLE);
+        }
     }
 
-
-
-    public void setData(Profile profile)
-    {
-        pro_user.setText(profile.getUsername());
-        pro_pwd.setText(profile.getPassword());
-        pro_first.setText(profile.getFirstName());
-        pro_last.setText(profile.getLastName());
-        pro_staddr.setText(profile.getStreetAddress());
-        pro_city.setText(profile.getCity());
-        pro_state.setText(profile.getState());
-        pro_zip.setText(profile.getZipCode());
-        pro_email.setText(profile.getEmail());
-        pro_phone.setText(profile.getPhone());
-
-
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        dbContext.close();
     }
 }

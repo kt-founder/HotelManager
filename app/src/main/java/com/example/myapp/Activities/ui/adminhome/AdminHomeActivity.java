@@ -8,12 +8,12 @@ import android.widget.Button;
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 
-
 import com.example.myapp.Activities.MainActivity;
 import com.example.myapp.R;
 
 public class AdminHomeActivity extends AppCompatActivity {
     Button admin_view, admin_search, admin_logout;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -24,12 +24,18 @@ public class AdminHomeActivity extends AppCompatActivity {
         admin_search = findViewById(R.id.admin_search);
         admin_logout = findViewById(R.id.admin_logout);
 
+        // Retrieve the username from the intent
+        final String username = getIntent().getStringExtra("username");
+
         admin_view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(AdminHomeActivity.this,AdminProfileActivity.class));
+                Intent intent = new Intent(AdminHomeActivity.this, AdminProfileActivity.class);
+                intent.putExtra("username", username);
+                startActivity(intent);
             }
         });
+
         admin_search.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
