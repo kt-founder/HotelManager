@@ -5,11 +5,11 @@
         <item>Irving</item>
 
     </string-array>
+    <string-array name="hotel_name_array">
+        <item>Arlington</item>
+        <item>Dallas</item>
+        <item>Irving</item>
 
-    <string-array name="rType">
-        <item>Standard</item>
-        <item>Deluxe</item>
-        <item>Suite</item>
     </string-array>
 
     <string-array name="noOfRooms">
@@ -18,7 +18,16 @@
         <item>3</item>
         <item>4</item>
     </string-array>
-
+    <string-array name="room_type_array">
+        <item>Standard</item>
+        <item>Deluxe</item>
+        <item>Suite</item>
+    </string-array>
+    <string-array name="rType">
+        <item>Standard</item>
+        <item>Deluxe</item>
+        <item>Suite</item>
+    </string-array>
     <string name="title_activity_list_of__resrvation">List_of_Resrvation</string>
     <string name="prompt_email">Email</string>
     <string name="prompt_password">Password</string>
