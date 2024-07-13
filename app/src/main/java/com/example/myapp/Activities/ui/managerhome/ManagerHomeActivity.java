@@ -24,7 +24,6 @@ public class ManagerHomeActivity extends AppCompatActivity {
         manager_viewList = findViewById(R.id.manager_listReservation);
         manager_availableRooms = findViewById(R.id.manager_available);
         manager_searchRoom = findViewById(R.id.manager_search);
-        Button managerRoom = findViewById(R.id.btRoom);
         logout = findViewById(R.id.manager_logout);
 
         // Assuming you have user information stored in shared preferences or passed via Intent
@@ -51,12 +50,6 @@ public class ManagerHomeActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intent = new Intent(ManagerHomeActivity.this, AvailableRoomActivity.class);
                 startActivity(intent);
-            }
-        });
-        managerRoom.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(ManagerHomeActivity.this,ManageRoom.class));
             }
         });
 

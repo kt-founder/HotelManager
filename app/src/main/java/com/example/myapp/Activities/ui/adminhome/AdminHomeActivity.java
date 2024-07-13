@@ -7,9 +7,7 @@ import android.widget.Button;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
+
 
 import com.example.myapp.Activities.MainActivity;
 import com.example.myapp.R;
@@ -32,12 +30,12 @@ public class AdminHomeActivity extends AppCompatActivity {
                 startActivity(new Intent(AdminHomeActivity.this,AdminProfileActivity.class));
             }
         });
-//        admin_search.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                startActivity(new Intent((AdminHomeActivity.this,searchGusetManager.class));
-//            }
-//        });
+        admin_search.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(AdminHomeActivity.this, AdminSearch.class));
+            }
+        });
 
         admin_logout.setOnClickListener(new View.OnClickListener() {
             @Override

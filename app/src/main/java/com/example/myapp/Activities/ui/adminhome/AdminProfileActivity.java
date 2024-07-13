@@ -31,6 +31,8 @@ public class AdminProfileActivity extends AppCompatActivity {
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_admin_profile);
 
+        home = findViewById(R.id.adminHome);
+        logout =findViewById(R.id.adminLogout);
         detailId();
         home.setOnClickListener(new View.OnClickListener() {
             @Override

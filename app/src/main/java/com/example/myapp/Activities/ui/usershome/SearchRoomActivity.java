@@ -63,10 +63,13 @@ public class SearchRoomActivity extends AppCompatActivity {
         search.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                startActivity(new Intent(SearchRoomActivity.this, ViewRoom.class));
                 System.out.println("Hotel Room Type is " + Hroom.getSelectedItem().toString());
 
                 String checkinDate = cidate.getText().toString();
                 String checkOutDate = codate.getText().toString();
+
+
 
                 String[] arr1 = checkinDate.split("/");
                 String[] arr = checkOutDate.split("/");
@@ -125,11 +128,14 @@ public class SearchRoomActivity extends AppCompatActivity {
 //
 //                    DBManager dbManager = new DBManager(searchRoomScreen.this);
 //                    arrayList = dbManager.getRoomDetails(Hroom.getSelectedItem().toString(),numOfNights);
-                    arrayList.add(new Hotel("âa","aa","aa","aa","âa"));
-                    searchRoomAdapter = new SearchRoomAdapter(SearchRoomActivity.this,arrayList);
 
-                    room_listView.setAdapter(searchRoomAdapter);
-                    searchRoomAdapter.notifyDataSetChanged();
+//                    arrayList.add(new Hotel("âa","aa","aa","aa","âa","aa"));
+//                    arrayList.add(new Hotel("âa","aa","aa","aa","âa","aa"));
+//                    arrayList.add(new Hotel("âa","aa","aa","aa","âa","aa"));
+//                    searchRoomAdapter = new SearchRoomAdapter(SearchRoomActivity.this,arrayList);
+//
+//                    room_listView.setAdapter(searchRoomAdapter);
+//                    searchRoomAdapter.notifyDataSetChanged();
 //
 //                }
 

@@ -1,5 +1,6 @@
 package com.example.myapp.Activities.database;
 
+import android.annotation.SuppressLint;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
@@ -54,7 +55,7 @@ public class DBContext {
 
     // Method to check user login information
     public boolean checkLogin(String username, String password) {
-        String[] columns = {"id"};
+        String[] columns = {"id","role"};
         String selection = SQLiteHelper.Username + " = ?" + " AND " + SQLiteHelper.Password + " = ?";
         String[] selectionArgs = {username, password};
         Cursor cursor = db.query(SQLiteHelper.System_users, columns, selection, selectionArgs, null, null, null);
@@ -153,6 +154,16 @@ public class DBContext {
             return null;
         }
     }
+    @SuppressLint("Range")
+    public String getUserRole(String username, String password) {
+        // Assume you have a SQLiteDatabase instance named db
+        Cursor cursor = db.rawQuery("SELECT Role FROM system_user WHERE username=? AND password=?", new String[]{username, password});
+        if (cursor.moveToFirst()) {
+            return cursor.getString(cursor.getColumnIndex("Role"));
+        }
+        return null; // return null if user not found or password is incorrect
+    }
+
     public Room getRoom(String roomNumber) {
         SQLiteDatabase db = this.helper.getReadableDatabase();
         Cursor cursor = db.rawQuery("SELECT * FROM rooms WHERE RoomNumber = ?", new String[]{roomNumber});

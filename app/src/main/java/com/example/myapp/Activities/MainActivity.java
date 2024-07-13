@@ -11,6 +11,7 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.myapp.Activities.database.DBContext;
+import com.example.myapp.Activities.ui.adminhome.AdminHomeActivity;
 import com.example.myapp.Activities.ui.managerhome.ManagerHomeActivity;
 import com.example.myapp.Activities.ui.usershome.userHomeActivity;
 import com.example.myapp.R;
@@ -52,15 +53,34 @@ public class MainActivity extends AppCompatActivity {
                     errorMessage.setText("Please enter both username and password");
                     errorMessage.setVisibility(View.VISIBLE);
                 } else if (dbContext.checkLogin(usernameText, passwordText)) {
-                    Intent a = new Intent(MainActivity.this, ManagerHomeActivity.class);
-                    //a.putExtra("username", usernameText);
-                    startActivity(a);
+                    String role = dbContext.getUserRole(usernameText, passwordText);
+                    Intent intent;
+                    if (role != null) {
+                        switch (role) {
+                            case "Admin":
+                                intent = new Intent(MainActivity.this, AdminHomeActivity.class);
+                                break;
+                            case "Manager":
+                                intent = new Intent(MainActivity.this, ManagerHomeActivity.class);
+                                break;
+                            case "Guest":
+                            default:
+                                intent = new Intent(MainActivity.this, userHomeActivity.class);
+                                break;
+                        }
+                        intent.putExtra("username", usernameText);
+                        startActivity(intent);
+                    } else {
+                        errorMessage.setText("Invalid username or password");
+                        errorMessage.setVisibility(View.VISIBLE);
+                    }
                 } else {
                     errorMessage.setText("Invalid username or password");
                     errorMessage.setVisibility(View.VISIBLE);
                 }
             }
         });
+
 
         bt_Register.setOnClickListener(new View.OnClickListener() {
             @Override

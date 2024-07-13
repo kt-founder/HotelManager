@@ -6,16 +6,19 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".Activities.ui.adminhome.AdminHomeActivity">
+
     <Button
         android:id="@+id/admin_view"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="94dp"
-        android:layout_marginTop="79dp"
+        android:layout_marginTop="92dp"
         android:layout_marginEnd="130dp"
+        android:gravity="center"
         android:paddingHorizontal="@android:dimen/app_icon_size"
-        android:text="View Peofile"
+        android:text="View Profile"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView3" />
 
@@ -24,25 +27,27 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="54dp"
-        android:layout_marginTop="68dp"
+        android:layout_marginTop="72dp"
         android:layout_marginEnd="87dp"
+        android:gravity="center"
         android:paddingHorizontal="@android:dimen/app_icon_size"
         android:text="Search Guest/Manager"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/admin_view" />
 
     <Button
         android:id="@+id/admin_logout"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="101dp"
+        android:layout_height="48dp"
         android:layout_marginStart="145dp"
-        android:layout_marginTop="88dp"
+        android:layout_marginTop="64dp"
         android:layout_marginEnd="178dp"
-        android:layout_marginBottom="261dp"
+        android:gravity="center"
         android:text="logout"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/admin_search" />
 
@@ -50,13 +55,12 @@
         android:id="@+id/textView3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="78dp"
-        android:layout_marginTop="59dp"
-        android:layout_marginEnd="114dp"
+        android:layout_marginStart="92dp"
+        android:layout_marginTop="140dp"
+        android:gravity="center"
         android:text="Admin Home Screen"
         android:textColor="#2196F3"
         android:textSize="24sp"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

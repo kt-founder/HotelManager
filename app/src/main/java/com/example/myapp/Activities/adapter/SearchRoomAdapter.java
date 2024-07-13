@@ -62,8 +62,6 @@ public class SearchRoomAdapter extends BaseAdapter {
 //        final EditText un = (EditText)view.findViewById(R.id.admin_umg);
         viewRoom = (Button) view.findViewById(R.id.rlView);
 
-
-
         Hotel hotel = arrayList.get(i);
         rlHname.setText(hotel.getHotelName());
         rlHloc.setText(hotel.getHotelLocation());

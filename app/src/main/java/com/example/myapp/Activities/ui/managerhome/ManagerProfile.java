@@ -33,6 +33,8 @@ public class ManagerProfile extends AppCompatActivity {
         // Set Id
         detailId();
 
+        nonEdit();
+
         home = findViewById(R.id.guestViewHome);
         logout = findViewById(R.id.guestViewLogout);
 
@@ -55,6 +57,7 @@ public class ManagerProfile extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 // Chinh sua
+
             }
         });
     }
