@@ -10,6 +10,8 @@ import android.database.sqlite.SQLiteDatabase;
 import com.example.myapp.Activities.entities.Profile;
 import com.example.myapp.Activities.entities.Room;
 
+import java.util.ArrayList;
+
 public class DBContext {
 
     SQLiteHelper helper;
@@ -182,6 +184,29 @@ public class DBContext {
         }
         return null; // return null if user not found or password is incorrect
     }
+    @SuppressLint("Range")
+    public ArrayList<Profile> searchByLastName(String lastName) {
+        ArrayList<Profile> profiles = new ArrayList<>();
+        SQLiteDatabase db = this.helper.getReadableDatabase();
+        Cursor cursor = db.rawQuery("SELECT * FROM system_user WHERE lastName LIKE ?", new String[]{ "%" + lastName + "%" });
+
+        if (cursor.moveToFirst()) {
+            do {
+                Profile profile = new Profile();
+                // Assuming Profile class has these fields
+                profile.setUsername(cursor.getString(cursor.getColumnIndex("username")));
+                profile.setFirstName(cursor.getString(cursor.getColumnIndex("firstName")));
+                profile.setLastName(cursor.getString(cursor.getColumnIndex("lastName")));
+                // Add other fields as necessary
+
+                profiles.add(profile);
+            } while (cursor.moveToNext());
+        }
+        cursor.close();
+        db.close();
+        return profiles;
+    }
+
 
     public Room getRoom(String roomNumber) {
         SQLiteDatabase db = this.helper.getReadableDatabase();

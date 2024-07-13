@@ -5,6 +5,7 @@
     android:fillViewport="false">
     <LinearLayout
         android:orientation="vertical" android:layout_width="match_parent"
+        android:layout_marginTop="80dp"
         android:layout_height="match_parent">
 
         <TextView
@@ -13,7 +14,6 @@
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
             android:layout_gravity="center"
-            android:layout_marginTop="60dp"
             android:text="View Selected Guest/Manager Screen"
             android:textColor="#03A9F4"
             android:textSize="22dp"

@@ -44,6 +44,7 @@ public class AdminProfileActivity extends AppCompatActivity {
         proZip = findViewById(R.id.pro_zip);
         proEmail = findViewById(R.id.pro_email);
         proPhone = findViewById(R.id.pro_phone);
+
         proCtype = findViewById(R.id.pro_ctype); // Ensure Spinner is initialized
         errorMessage = findViewById(R.id.error_message);
         proModify = findViewById(R.id.adminModify);
@@ -53,6 +54,7 @@ public class AdminProfileActivity extends AppCompatActivity {
         // Set up spinner
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
                 R.array.credit_card_types, android.R.layout.simple_spinner_item);
+
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         proCtype.setAdapter(adapter); // This line sets the adapter to the Spinner
 
