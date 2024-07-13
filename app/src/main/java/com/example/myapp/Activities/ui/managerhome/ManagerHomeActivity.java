@@ -56,7 +56,7 @@ public class ManagerHomeActivity extends AppCompatActivity {
         managerRoom.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                startActivity(new Intent(ManagerHomeActivity.this,ManageRoom.class));
             }
         });
 
