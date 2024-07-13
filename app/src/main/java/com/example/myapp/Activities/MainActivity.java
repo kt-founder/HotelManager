@@ -52,6 +52,7 @@ public class MainActivity extends AppCompatActivity {
                     errorMessage.setVisibility(View.VISIBLE);
                 } else if (dbContext.checkLogin(usernameText, passwordText)) {
                     Intent a = new Intent(MainActivity.this, userHomeActivity.class);
+                    a.putExtra("username", usernameText);
                     startActivity(a);
                 } else {
                     errorMessage.setText("Invalid username or password");

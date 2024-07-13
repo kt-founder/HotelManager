@@ -20,6 +20,8 @@
           <activity android:name=".Activities.ui.usershome.Register"
             android:exported="false" />
 
+        <activity android:name=".Activities.ui.managerhome.ManagerHomeActivity"
+            android:exported="false"/>
         <activity
 
             android:name=".Activities.ui.adminhome.AdminHomeActivity"
@@ -27,7 +29,10 @@
         <activity
             android:name=".Activities.ui.usershome.DetailReservationActivity"
             android:exported="false" />
+        <activity android:name=".Activities.ui.managerhome.viewProfile"
+            android:exported="false" />
         <activity
+
             android:name=".Activities.ui.usershome.GuestReservationListActivity"
             android:exported="false" />
         <activity
@@ -36,7 +41,14 @@
         <activity
             android:name=".Activities.ui.usershome.GuestReservationActivity"
             android:exported="false" />
+        <activity android:name=".Activities.ui.usershome.viewProfile"
+            android:exported="false" />
+
+        <activity android:name=".Activities.ui.adminhome.AdminProfileActivity"
+            android:exported="false"
+            tools:ignore="DuplicateActivity" />
         <activity
+
             android:name=".Activities.ui.usershome.userHomeActivity"
             android:exported="false" />
         <activity

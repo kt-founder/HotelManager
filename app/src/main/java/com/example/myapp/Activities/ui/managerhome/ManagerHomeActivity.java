@@ -7,15 +7,13 @@ import android.widget.Button;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 
 import com.example.myapp.Activities.MainActivity;
 import com.example.myapp.R;
 
 public class ManagerHomeActivity extends AppCompatActivity {
     Button manager_profile, manager_viewList, manager_availableRooms, manager_searchRoom, logout;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -28,20 +26,25 @@ public class ManagerHomeActivity extends AppCompatActivity {
         manager_searchRoom = findViewById(R.id.manager_search);
         logout = findViewById(R.id.manager_logout);
 
-
-        manager_viewList.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(ManagerHomeActivity.this,MViewListReservationActivity.class));
-            }
-        });
+        // Assuming you have user information stored in shared preferences or passed via Intent
+        final String username = "exampleUser";  // Replace this with actual user data retrieval logic
 
         manager_profile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(ManagerHomeActivity.this,ManagerProfile.class));
+                Intent intent = new Intent(ManagerHomeActivity.this, ManagerProfile.class);
+                intent.putExtra("username", username);
+                startActivity(intent);
             }
         });
+
+        manager_viewList.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(ManagerHomeActivity.this, MViewListReservationActivity.class));
+            }
+        });
+
         manager_availableRooms.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
