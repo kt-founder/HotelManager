@@ -8,31 +8,32 @@
         android:fullBackupContent="@xml/backup_rules"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
-
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.MyApp"
         tools:targetApi="31">
         <activity
+            android:name=".Activities.ui.managerhome.ManageRoom"
+            android:exported="false" />
+        <activity
             android:name=".Activities.ui.adminhome.AdminProfileActivity"
             android:exported="false" />
-
-          <activity android:name=".Activities.ui.usershome.Register"
-            android:exported="false" />
-
-        <activity android:name=".Activities.ui.managerhome.ManagerHomeActivity"
-            android:exported="false"/>
         <activity
-
+            android:name=".Activities.ui.usershome.Register"
+            android:exported="false" />
+        <activity
+            android:name=".Activities.ui.managerhome.ManagerHomeActivity"
+            android:exported="false" />
+        <activity
             android:name=".Activities.ui.adminhome.AdminHomeActivity"
             android:exported="false" />
         <activity
             android:name=".Activities.ui.usershome.DetailReservationActivity"
             android:exported="false" />
-        <activity android:name=".Activities.ui.usershome.viewProfile"
+        <activity
+            android:name=".Activities.ui.usershome.viewProfile"
             android:exported="false" />
         <activity
-
             android:name=".Activities.ui.usershome.GuestReservationListActivity"
             android:exported="false" />
         <activity
@@ -44,8 +45,6 @@
         <activity
             android:name=".Activities.ui.usershome.ConfirmationActivity"
             android:exported="false" />
-
-
         <activity
             android:name=".Activities.ui.usershome.Payment"
             android:exported="false" />
@@ -79,16 +78,13 @@
         <activity
             android:name=".Activities.ui.managerhome.SearchRoomManagerActivity"
             android:exported="false" />
-         <activity
+        <activity
             android:name=".Activities.ui.adminhome.AdminSearch"
             android:exported="false" />
         <activity
             android:name=".Activities.ui.adminhome.AdminViewGuestActivity"
             android:exported="false" />
-
-
         <activity
-
             android:name=".Activities.ui.usershome.userHomeActivity"
             android:exported="false" />
         <activity

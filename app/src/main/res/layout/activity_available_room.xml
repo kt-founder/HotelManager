@@ -2,7 +2,7 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginTop="70dp"
+    android:layout_marginTop="60dp"
     android:fillViewport="false">
     <LinearLayout
         android:orientation="vertical"
@@ -14,7 +14,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:layout_marginTop="20dp">
+            >
             <Button
                 android:id="@+id/availLogout"
                 android:layout_width="120dp"
@@ -37,11 +37,7 @@
             android:textSize="25dp"
             android:textStyle="bold"
             />
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/btAddRoom"
-            android:text="Add room"/>
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -155,12 +151,20 @@
                         android:textStyle="bold"
                         android:layout_column="2"
                         />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:textAppearance="?android:attr/textAppearanceLarge"
+                        android:text="View"
+                        android:gravity="center"
+                        android:textStyle="bold"
+                        android:layout_column="3"
+                        />
 
                 </TableRow>
 
-
-
             </TableLayout>
+
         </ScrollView>
 
     </LinearLayout>

@@ -19,12 +19,13 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView2" />
 
+
     <Button
         android:id="@+id/manager_listReservation"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="67dp"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="28dp"
         android:layout_marginEnd="67dp"
         android:paddingHorizontal="@android:dimen/app_icon_size"
         android:text="View List of Reservation"
@@ -37,11 +38,12 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="72dp"
-        android:layout_marginTop="48dp"
+        android:layout_marginTop="36dp"
         android:layout_marginEnd="81dp"
         android:paddingHorizontal="@android:dimen/app_icon_size"
         android:text="View Available Rooms"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.32"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/manager_listReservation" />
 
@@ -50,11 +52,12 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="97dp"
-        android:layout_marginTop="51dp"
+        android:layout_marginTop="92dp"
         android:layout_marginEnd="120dp"
         android:paddingHorizontal="@android:dimen/app_icon_size"
         android:text="Search Room"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.538"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/manager_available" />
 
@@ -69,15 +72,17 @@
         android:text="Logout"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/manager_search" />
+        app:layout_constraintTop_toBottomOf="@+id/manager_search"
+        app:layout_constraintVertical_bias="1.0" />
 
     <TextView
         android:id="@+id/textView2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="81dp"
-        android:layout_marginTop="45dp"
+        android:layout_marginTop="72dp"
         android:layout_marginEnd="82dp"
         android:text="Manager Home Screen"
         android:textColor="#2196F3"
@@ -86,7 +91,19 @@
         android:textSize="24sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/btRoom"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:text="Room Managerment"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.454"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/manager_available" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
