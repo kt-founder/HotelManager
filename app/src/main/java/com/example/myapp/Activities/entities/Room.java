@@ -20,12 +20,15 @@ public class Room {
     private String roomStatus;
 
 
-    public Room(String checkInDate, String checkOutDate, String roomNumber, String roomStatus) {
-        this.checkInDate = checkInDate;
-        this.checkOutDate = checkOutDate;
-        this.roomNumber = roomNumber;
-        this.roomStatus = roomStatus;
-    }
+
+
+   public  Room(String roomNumber,String roomType,String pricePerNight,String roomStatus){
+        this.roomNumber=roomNumber;
+        this.roomType=roomType;
+        this.pricePerNight=pricePerNight;
+        this.roomStatus=roomStatus;
+   }
+
 
     public String getRoomStatus() {
         return roomStatus;

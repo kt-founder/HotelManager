@@ -117,6 +117,8 @@ public class SQLiteHelper extends SQLiteOpenHelper {
                 Billing_address + " TEXT, " +
                 First_name + " TEXT, " +
                 Last_name + " TEXT, " +
+
+
                 Reservation_date + " TEXT)";
         db.execSQL(qry1);
 

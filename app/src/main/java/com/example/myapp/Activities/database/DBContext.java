@@ -7,6 +7,7 @@ import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 
 import com.example.myapp.Activities.entities.Profile;
+import com.example.myapp.Activities.entities.Room;
 
 public class DBContext {
 
@@ -126,5 +127,49 @@ public class DBContext {
         } else {
             return null;
         }
+
+
     }
+
+    public Room searchRoom(String roomNumber) {
+        String[] columns = {
+                SQLiteHelper.RNUM,
+                SQLiteHelper.RType,
+                SQLiteHelper.RPNight,
+                SQLiteHelper.RStatus
+        };
+
+        Cursor cursor = db.query(SQLiteHelper.RoomDetails, columns, SQLiteHelper.RNUM + " = ?", new String[]{roomNumber}, null, null, null);
+        if (cursor != null && cursor.moveToFirst()) {
+            Room room = new Room(
+                    cursor.getString(cursor.getColumnIndexOrThrow(SQLiteHelper.RNUM)),
+                    cursor.getString(cursor.getColumnIndexOrThrow(SQLiteHelper.RType)),
+                    cursor.getString(cursor.getColumnIndexOrThrow(SQLiteHelper.RPNight)),
+                    cursor.getString(cursor.getColumnIndexOrThrow(SQLiteHelper.RStatus))
+            );
+            cursor.close();
+            return room;
+        } else {
+            return null;
+        }
+    }
+    public Room getRoom(String roomNumber) {
+        SQLiteDatabase db = this.helper.getReadableDatabase();
+        Cursor cursor = db.rawQuery("SELECT * FROM rooms WHERE RoomNumber = ?", new String[]{roomNumber});
+
+        if (cursor != null && cursor.moveToFirst()) {
+            Room room = new Room(
+                    cursor.getString(cursor.getColumnIndexOrThrow("RoomNumber")),
+                    cursor.getString(cursor.getColumnIndexOrThrow("roomType")),
+                    cursor.getString(cursor.getColumnIndexOrThrow("pricePerNight")),
+                    cursor.getString(cursor.getColumnIndexOrThrow("roomStatus"))
+            );
+            cursor.close();
+            return room;
+        } else {
+            return null;
+        }
+    }
+
+
 }
