@@ -26,8 +26,8 @@ public class ManagerHomeActivity extends AppCompatActivity {
         manager_searchRoom = findViewById(R.id.manager_search);
         logout = findViewById(R.id.manager_logout);
 
-        // Assuming you have user information stored in shared preferences or passed via Intent
-        final String username = "exampleUser";  // Replace this with actual user data retrieval logic
+        // Retrieve the username from the intent
+        final String username = getIntent().getStringExtra("username");
 
         manager_profile.setOnClickListener(new View.OnClickListener() {
             @Override
