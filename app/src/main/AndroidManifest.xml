@@ -41,11 +41,52 @@
         <activity
             android:name=".Activities.ui.usershome.GuestReservationActivity"
             android:exported="false" />
+        <activity
+            android:name=".Activities.ui.usershome.ConfirmationActivity"
+            android:exported="false" />
 
 
-        <activity android:name=".Activities.ui.adminhome.AdminProfileActivity"
-            android:exported="false"
-            tools:ignore="DuplicateActivity" />
+        <activity
+            android:name=".Activities.ui.usershome.Payment"
+            android:exported="false" />
+        <activity
+            android:name=".Activities.ui.usershome.ReverveRoomActivity"
+            android:exported="false" />
+        <activity
+            android:name=".Activities.ui.usershome.SearchRoomActivity"
+            android:exported="false" />
+        <activity
+            android:name=".Activities.ui.usershome.ViewRoom"
+            android:exported="false" />
+        <activity
+            android:name=".Activities.ui.managerhome.AvailableRoomActivity"
+            android:exported="false" />
+        <activity
+            android:name=".Activities.ui.managerhome.DetailReservationActivity"
+            android:exported="false" />
+        <activity
+            android:name=".Activities.ui.managerhome.ListReservationManager"
+            android:exported="false" />
+        <activity
+            android:name=".Activities.ui.managerhome.ManagerProfile"
+            android:exported="false" />
+        <activity
+            android:name=".Activities.ui.managerhome.ModifyRoomActivity"
+            android:exported="false" />
+        <activity
+            android:name=".Activities.ui.managerhome.MViewListReservationActivity"
+            android:exported="false" />
+        <activity
+            android:name=".Activities.ui.managerhome.SearchRoomManagerActivity"
+            android:exported="false" />
+         <activity
+            android:name=".Activities.ui.adminhome.AdminSearch"
+            android:exported="false" />
+        <activity
+            android:name=".Activities.ui.adminhome.AdminViewGuestActivity"
+            android:exported="false" />
+
+
         <activity
 
             android:name=".Activities.ui.usershome.userHomeActivity"
