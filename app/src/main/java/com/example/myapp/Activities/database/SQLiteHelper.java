@@ -151,6 +151,67 @@ public class SQLiteHelper extends SQLiteOpenHelper {
                 NRDate + " TEXT, " +
                 NREndDate + " TEXT)";
         db.execSQL(qry3);
+        addDefaultHotelsAndRooms(db);
+    }
+
+    private void addDefaultHotelsAndRooms(SQLiteDatabase db) {
+        String[] hotelNames = new String[3];
+        hotelNames[0] = "Arlington";
+        hotelNames[1] = "Dallas";
+        hotelNames[2] = "Irving";
+        String[] hotelLocations = new String[3];
+        hotelLocations[0] = "Ha Noi";
+        hotelLocations[1] = "Da Nang";
+        hotelLocations[2] = "Ho Chi Minh";
+        String hotelManager = "Manager1";
+        String[] roomTypes = new String[3];
+        roomTypes[0] = "Standard";
+        roomTypes[1] = "Deluxe";
+        roomTypes[2] = "Suite";
+
+        String[] roomFacilities = new String[3];
+        roomFacilities[0] = "WiFi, TV, AC";
+        roomFacilities[1] =   "WiFi, TV, AC, Minibar";
+        roomFacilities[2] =  "WiFi, TV, Minibar";
+
+        String roomStatus = "Available";
+        int roomNumber = 1;
+
+        for (int i = 0; i < hotelNames.length; i++) {
+            String insertHotel = "INSERT INTO " + HotelDetails + " (" +
+                    HName + ", " +
+                    HLoc + ", " +
+                    HManager + ") VALUES ('" +
+                    hotelNames[i] + "', '" +
+                    hotelLocations[i] + "', '" +
+                    hotelManager + "')";
+            db.execSQL(insertHotel);
+
+            for (int j = 1; j <= 15; j++) {
+                String insertRoom = "INSERT INTO " + RoomDetails + " (" +
+                        RNUM + ", " +
+                        HName + ", " +
+                        HLoc + ", " +
+                        RType + ", " +
+                        HManager + ", " +
+                        NRooms + ", " +
+                        RPNight + ", " +
+                        RBeds + ", " +
+                        RFacilities + ", " +
+                        RStatus + ") VALUES (" +
+                        roomNumber + ", '" +
+                        hotelNames[i] + "', '" +
+                        hotelLocations[i] + "', '" +
+                        roomTypes[j % roomTypes.length] + "', '" +
+                        hotelManager + "', '1', '" +
+                        (100 + j * 10) + "', '" +
+                        (1 + j % 3) + "', '" +
+                        roomFacilities[j % roomFacilities.length] + "', '" +
+                        roomStatus + "')";
+                db.execSQL(insertRoom);
+                roomNumber++;
+            }
+        }
     }
 
     @Override

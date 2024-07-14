@@ -63,6 +63,19 @@ public class viewProfile extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 updateProfile();
+                proUser.setFocusable(false);
+                proPwd.setFocusable(false);
+                proFirst.setFocusable(false);
+                proLast.setFocusable(false);
+                proStAddr.setFocusable(false);
+                proCity.setFocusable(false);
+                proState.setFocusable(false);
+                proZip.setFocusable(false);
+                proEmail.setFocusable(false);
+                proPhone.setFocusable(false);
+                proCname.setFocusable(false);
+                proCnum.setFocusable(false);
+                proCexp.setFocusable(false);
             }
         });
 
@@ -148,6 +161,7 @@ public class viewProfile extends AppCompatActivity {
             errorMessage.setVisibility(View.VISIBLE);
         }
     }
+
 
     @Override
     protected void onDestroy() {

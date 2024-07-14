@@ -11,6 +11,11 @@
         <item>Irving</item>
 
     </string-array>
+    <string-array name="hotel_location_array">
+        <item>Ha noi</item>
+        <item>Da Nang</item>
+        <item>Ho Chi Minh</item>
+    </string-array>
 
     <string-array name="noOfRooms">
         <item>1</item>

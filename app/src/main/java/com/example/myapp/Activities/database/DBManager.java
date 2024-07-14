@@ -278,25 +278,23 @@ public class DBManager extends SQLiteOpenHelper
 
         if(role == "Admin")
         {
-            Profile profile1 = new Profile(cursor.getString(1),cursor.getString(2),cursor.getString(15),cursor.getString(4),cursor.getString(3),cursor.getString(5),cursor.getString(6),
-                    cursor.getString(7),cursor.getString(8),cursor.getString(9),cursor.getString(10));
-
+            Profile profile1 = new Profile();
             profile1.setUsername(cursor.getString(1));
-
             profile1.setPassword(cursor.getString(2));
             profile1.setFirstName(cursor.getString(3));
             profile1.setLastName(cursor.getString(4));
-            profile1.setStreetAddress(cursor.getString(5));
-            profile1.setCity(cursor.getString(6));
-            profile1.setState(cursor.getString(7));
+            profile1.setStreetAddress(cursor.getString(8));
+            profile1.setCity(cursor.getString(9));
+            profile1.setState(cursor.getString(10));
 
-            profile1.setZipCode(cursor.getString(8));
-            profile1.setEmail(cursor.getString(9));
-            profile1.setPhone(cursor.getString(10));
-            profile1.setRole(cursor.getString(15));
+            profile1.setZipCode(cursor.getString(11));
+            profile1.setEmail(cursor.getString(12));
+            profile1.setPhone(cursor.getString(13));
+            profile1.setRole("Admin");
 
             cursor.close();
             db.close();
+            return profile1;
         }
 
         return profile;

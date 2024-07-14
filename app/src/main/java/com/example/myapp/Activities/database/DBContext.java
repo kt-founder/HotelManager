@@ -7,6 +7,7 @@ import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 
+import com.example.myapp.Activities.entities.Hotel;
 import com.example.myapp.Activities.entities.Profile;
 import com.example.myapp.Activities.entities.Room;
 
@@ -128,22 +129,22 @@ public class DBContext {
 
         Cursor cursor = db.query(SQLiteHelper.System_users, columns, SQLiteHelper.Username + " = ?", new String[]{username}, null, null, null);
         if (cursor != null && cursor.moveToFirst()) {
-            Profile profile = new Profile(
-                    cursor.getString(cursor.getColumnIndexOrThrow(SQLiteHelper.Username)),
-                    cursor.getString(cursor.getColumnIndexOrThrow(SQLiteHelper.Password)),
-                    cursor.getString(cursor.getColumnIndexOrThrow(SQLiteHelper.FirstName)),
-                    cursor.getString(cursor.getColumnIndexOrThrow(SQLiteHelper.LastName)),
-                    cursor.getString(cursor.getColumnIndexOrThrow(SQLiteHelper.StreetAddress)),
-                    cursor.getString(cursor.getColumnIndexOrThrow(SQLiteHelper.City)),
-                    cursor.getString(cursor.getColumnIndexOrThrow(SQLiteHelper.State)),
-                    cursor.getString(cursor.getColumnIndexOrThrow(SQLiteHelper.Zipcode)),
-                    cursor.getString(cursor.getColumnIndexOrThrow(SQLiteHelper.Email)),
-                    cursor.getString(cursor.getColumnIndexOrThrow(SQLiteHelper.Phone)),
-                    cursor.getString(cursor.getColumnIndexOrThrow(SQLiteHelper.NameOnCard)),
-                    cursor.getString(cursor.getColumnIndexOrThrow(SQLiteHelper.Cctype)),
-                    cursor.getString(cursor.getColumnIndexOrThrow(SQLiteHelper.Ccnumber)),
-                    cursor.getString(cursor.getColumnIndexOrThrow(SQLiteHelper.Ccexpiry))
-            );
+            Profile profile = new Profile();
+                   profile.setUsername(cursor.getString(cursor.getColumnIndexOrThrow(SQLiteHelper.Username)));
+                   profile.setPassword(cursor.getString(cursor.getColumnIndexOrThrow(SQLiteHelper.Password)));
+                   profile.setFirstName(cursor.getString(cursor.getColumnIndexOrThrow(SQLiteHelper.FirstName)));
+                    profile.setLastName(cursor.getString(cursor.getColumnIndexOrThrow(SQLiteHelper.LastName)));
+                    profile.setStreetAddress(cursor.getString(cursor.getColumnIndexOrThrow(SQLiteHelper.StreetAddress)));
+                    profile.setCity(cursor.getString(cursor.getColumnIndexOrThrow(SQLiteHelper.City)));
+                    profile.setState(cursor.getString(cursor.getColumnIndexOrThrow(SQLiteHelper.State)));
+                    profile.setZipCode(cursor.getString(cursor.getColumnIndexOrThrow(SQLiteHelper.Zipcode)));
+                   profile.setEmail( cursor.getString(cursor.getColumnIndexOrThrow(SQLiteHelper.Email)));
+                   profile.setPhone( cursor.getString(cursor.getColumnIndexOrThrow(SQLiteHelper.Phone)));
+                    profile.setCreditCardName(cursor.getString(cursor.getColumnIndexOrThrow(SQLiteHelper.NameOnCard)));
+                    profile.setCreditCardType(cursor.getString(cursor.getColumnIndexOrThrow(SQLiteHelper.Cctype)));
+                    profile.setCreditCardExp(cursor.getString(cursor.getColumnIndexOrThrow(SQLiteHelper.Ccnumber)));
+                    profile.setCreditCardExp(cursor.getString(cursor.getColumnIndexOrThrow(SQLiteHelper.Ccexpiry)));
+
             cursor.close();
             return profile;
         } else {
@@ -207,6 +208,39 @@ public class DBContext {
         return profiles;
     }
 
+    @SuppressLint("Range")
+    public ArrayList<Room> getRoomDetails(String location, String roomType) {
+        ArrayList<Room> rooms = new ArrayList<>();
+        SQLiteDatabase db = this.helper.getReadableDatabase();
+
+        String query = "SELECT * FROM rooms WHERE hotelLocation = ? AND roomType = ?";
+        Cursor cursor = db.rawQuery(query, new String[]{location, roomType});
+
+        if (cursor.moveToFirst()) {
+            do {
+                 Room room = new Room();
+
+                room.setHotelName(cursor.getString(cursor.getColumnIndex("hotelName")));
+                room.setHotelLocation(cursor.getString(cursor.getColumnIndex("hotelLocation")));
+                room.setRoomType(cursor.getString(cursor.getColumnIndex("roomType")));
+                room.setNumberOfBeds(cursor.getString(cursor.getColumnIndex("numberOfBeds")));
+                room.setRoomFacilities(cursor.getString(cursor.getColumnIndex("roomFacilities")));
+                room.setNumberOfNights(cursor.getString(cursor.getColumnIndex("numberOfNights")));
+                room.setPricePerNight(cursor.getString(cursor.getColumnIndex("pricePerNight")));
+                room.setNumberOfRooms(cursor.getString(cursor.getColumnIndex("numberOfRooms")));
+                room.setNumberOfAdults(cursor.getString(cursor.getColumnIndex("numberOfAdults")));
+                room.setNumberOfChildren(cursor.getString(cursor.getColumnIndex("numberOfChildren")));
+                room.setBookingId(cursor.getString(cursor.getColumnIndex("bookingId")));
+                room.setTotalPrice(cursor.getString(cursor.getColumnIndex("totalPrice")));
+                rooms.add(room);
+            } while (cursor.moveToNext());
+        }
+
+        cursor.close();
+        db.close();
+
+        return rooms;
+    }
 
     public Room getRoom(String roomNumber) {
         SQLiteDatabase db = this.helper.getReadableDatabase();
