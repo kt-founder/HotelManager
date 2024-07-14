@@ -209,7 +209,7 @@ public class DBContext {
     }
 
     @SuppressLint("Range")
-    public ArrayList<Room> getRoomDetails(String location, String roomType) {
+    public ArrayList<Room> getRoomDetails(String location, String roomType, String checkIn, String checkOut, int NumberOfNight) {
         ArrayList<Room> rooms = new ArrayList<>();
         SQLiteDatabase db = this.helper.getReadableDatabase();
 
@@ -225,13 +225,18 @@ public class DBContext {
                 room.setRoomType(cursor.getString(cursor.getColumnIndex("roomType")));
                 room.setNumberOfBeds(cursor.getString(cursor.getColumnIndex("numberOfBeds")));
                 room.setRoomFacilities(cursor.getString(cursor.getColumnIndex("roomFacilities")));
-                room.setNumberOfNights(cursor.getString(cursor.getColumnIndex("numberOfNights")));
+//                room.setNumberOfNights(cursor.getString(cursor.getColumnIndex("numberOfNights")));
                 room.setPricePerNight(cursor.getString(cursor.getColumnIndex("pricePerNight")));
                 room.setNumberOfRooms(cursor.getString(cursor.getColumnIndex("numberOfRooms")));
-                room.setNumberOfAdults(cursor.getString(cursor.getColumnIndex("numberOfAdults")));
-                room.setNumberOfChildren(cursor.getString(cursor.getColumnIndex("numberOfChildren")));
-                room.setBookingId(cursor.getString(cursor.getColumnIndex("bookingId")));
-                room.setTotalPrice(cursor.getString(cursor.getColumnIndex("totalPrice")));
+                room.setNumberOfBeds(cursor.getString(cursor.getColumnIndex("numberOfBeds")));
+                room.setRoomStatus(cursor.getString(cursor.getColumnIndex("roomStatus")));
+                room.setCheckInDate(checkIn);
+                room.setCheckOutDate(checkOut);
+                room.setNumberOfNights(String.valueOf(NumberOfNight));
+//                room.setNumberOfAdults(cursor.getString(cursor.getColumnIndex("numberOfAdults")));
+//                room.setNumberOfChildren(cursor.getString(cursor.getColumnIndex("numberOfChildren")));
+//                room.setBookingId(cursor.getString(cursor.getColumnIndex("bookingId")));
+//                room.setTotalPrice(cursor.getString(cursor.getColumnIndex("totalPrice")));
                 rooms.add(room);
             } while (cursor.moveToNext());
         }

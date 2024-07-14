@@ -58,8 +58,12 @@ public class SearchRoomAdapter extends ArrayAdapter<Room> {
                 intent.putExtra("roomFacilities", room.getRoomFacilities());
                 intent.putExtra("checkInDate", room.getCheckInDate());
                 intent.putExtra("checkOutDate", room.getCheckOutDate());
+                intent.putExtra("numberOfBeds",room.getNumberOfBeds());
                 intent.putExtra("numberOfNights", room.getNumberOfNights());
                 intent.putExtra("totalPrice", room.getTotalPrice());
+                intent.putExtra(("numberOfNight"),room.getNumberOfNights());
+                intent.putExtra("checkIn",room.getCheckInDate());
+                intent.putExtra("checkOut",room.getCheckOutDate());
                 context.startActivity(intent);
             }
         });

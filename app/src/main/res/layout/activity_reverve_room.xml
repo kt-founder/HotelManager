@@ -2,6 +2,7 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:layout_marginTop="40dp"
     android:fillViewport="false">
     <LinearLayout
         android:orientation="vertical" android:layout_width="match_parent"
@@ -172,6 +173,7 @@
         <EditText
             android:id="@+id/viewTotalPrice"
             android:layout_width="300dp"
+            android:layout_marginLeft="20dp"
             android:layout_height="wrap_content" />
 
         <TextView
@@ -185,6 +187,7 @@
             android:textSize="16dp"/>
         <EditText
             android:id="@+id/reserveBooking"
+            android:layout_marginLeft="20dp"
             android:layout_width="300dp"
             android:layout_height="wrap_content" />
 

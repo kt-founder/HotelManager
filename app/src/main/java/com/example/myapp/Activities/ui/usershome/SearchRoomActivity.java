@@ -25,7 +25,7 @@ import java.util.ArrayList;
 
 public class SearchRoomActivity extends AppCompatActivity {
     Button home, logout, search;
-    EditText nadults, nchild, cidate, codate;
+    EditText cidate, codate;
     Spinner Hloc, Hroom, HNroom;
     ListView room_listView;
     SearchRoomAdapter searchRoomAdapter;
@@ -43,8 +43,6 @@ public class SearchRoomActivity extends AppCompatActivity {
         logout = findViewById(R.id.logout);
         search = findViewById(R.id.search_r);
 
-        nadults = findViewById(R.id.nadults);
-        nchild = findViewById(R.id.nchild);
         cidate = findViewById(R.id.cidate);
         codate = findViewById(R.id.codate);
         Hloc = findViewById(R.id.Hloc);
@@ -99,7 +97,14 @@ public class SearchRoomActivity extends AppCompatActivity {
         String location = Hloc.getSelectedItem().toString();
         String roomType = Hroom.getSelectedItem().toString();
 
-        arrayList = dbContext.getRoomDetails(location, roomType);
+        if(cidate.getText().toString().matches("^(0[1-9]|[12][0-9]|3[01])/(0[1-9]|1[0-2])/([0-9]{4})$\n")||codate.getText().toString().matches("^(0[1-9]|[12][0-9]|3[01])/(0[1-9]|1[0-2])/([0-9]{4})$\n")){
+            Toast.makeText(this,"Please input Date Format dd/MM/YYYY",Toast.LENGTH_SHORT).show();
+            startActivity(new Intent(SearchRoomActivity.this, SearchRoomActivity.class));
+        }
+
+        int NumberOfNight = calculateNumOfNights(cidate.getText().toString().split("/"),codate.getText().toString().split("/"));
+
+        arrayList = dbContext.getRoomDetails(location, roomType, cidate.getText().toString(),codate.getText().toString(), NumberOfNight);
 
         if (arrayList.isEmpty()) {
             Toast.makeText(SearchRoomActivity.this, "No rooms found", Toast.LENGTH_SHORT).show();
@@ -118,8 +123,24 @@ public class SearchRoomActivity extends AppCompatActivity {
         int checkoutMonth = Integer.parseInt(checkoutArr[1]);
         int checkoutYear = Integer.parseInt(checkoutArr[2]);
 
+        java.util.Calendar checkInDate = java.util.Calendar.getInstance();
+        java.util.Calendar checkOutDate = java.util.Calendar.getInstance();
+
+        // Set the dates for comparison
+        checkInDate.set(checkinYear, checkinMonth - 1, checkinDay); // Month is 0-based in Calendar
+        checkOutDate.set(checkoutYear, checkoutMonth - 1, checkoutDay);
+
+        // Check if check-out date is before check-in date
+        if (!checkOutDate.after(checkInDate)) {
+            Toast.makeText(this,"Please input Check In before Check Out",Toast.LENGTH_SHORT).show();
+            startActivity(new Intent(SearchRoomActivity.this, SearchRoomActivity.class));
+        }
+
         // Calculate number of nights
-        int numOfNights = (checkoutYear - checkinYear) * 365 + (checkoutMonth - checkinMonth) * 30 + (checkoutDay - checkinDay);
+        long diff = checkOutDate.getTimeInMillis() - checkInDate.getTimeInMillis();
+        int numOfNights = (int) (diff / (24 * 60 * 60 * 1000)); // Convert from milliseconds to days
+
         return numOfNights;
     }
+
 }

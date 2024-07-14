@@ -30,20 +30,6 @@ public class ViewRoom extends AppCompatActivity {
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_view_room);
 
-//        sharedpreferences = getSharedPreferences(SHARED_PREF_NAME,MODE_PRIVATE);
-//        final String rt = sharedpreferences.getString(searchRoomAdapter.KEY_rt,"");
-//        final String hn = sharedpreferences.getString(searchRoomAdapter.KEY_hn,"");
-//        final String check = sharedpreferences.getString(searchRoomScreen.KEY_CHECKINDATE,"");
-//        final String check_out = sharedpreferences.getString(searchRoomScreen.KEY_CHECKOUTDATE,"");
-//        final String numNights = sharedpreferences.getString(searchRoomScreen.KEY_NUMBEROFNIGHTS,"");
-//        final String numRooms = sharedpreferences.getString(searchRoomScreen.KEY_NUMBEROFROOMS,"");
-//        final String adults = sharedpreferences.getString(searchRoomScreen.KEY_ADULT,"");
-//        final String child = sharedpreferences.getString(searchRoomScreen.KEY_CHILDREN,"");
-//        final String fn = sharedpreferences.getString(MainActivity.KEY_FIRSTNAME,"");
-//        final String ln = sharedpreferences.getString(MainActivity.KEY_LASTNAME,"");
-//        final String un = sharedpreferences.getString(MainActivity.KEY_USERNAME,"");
-
-
         reserve = findViewById(R.id.viewReserve);
         logout = findViewById(R.id.viewLogout);
         home = findViewById(R.id.viewHome);
@@ -58,6 +44,31 @@ public class ViewRoom extends AppCompatActivity {
         nNights = findViewById(R.id.viewNights);
         price = findViewById(R.id.viewPrice);
         totalPrice = findViewById(R.id.viewTotalPrice);
+
+        // Extract data from intent
+        Intent intent = getIntent();
+        hotelName.setText(intent.getStringExtra("hotelName"));
+        hotelLocation.setText(intent.getStringExtra("hotelLocation"));
+        roomType.setText(intent.getStringExtra("roomType"));
+        nBeds.setText(intent.getStringExtra("numberOfBeds"));
+        rFacilities.setText(intent.getStringExtra("roomFacilities"));
+        cid.setText(intent.getStringExtra("checkInDate"));
+        cod.setText(intent.getStringExtra("checkOutDate"));
+        nNights.setText(intent.getStringExtra("numberOfNights"));
+        price.setText(intent.getStringExtra("pricePerNight"));
+        totalPrice.setText(intent.getStringExtra("totalPrice"));
+
+        home.setOnClickListener(view -> startActivity(new Intent(ViewRoom.this, userHomeActivity.class)));
+
+        logout.setOnClickListener(view -> startActivity(new Intent(ViewRoom.this, MainActivity.class)));
+
+        reserve.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(ViewRoom.this,ReverveRoomActivity.class);
+                startActivity(intent);
+            }
+        });
 
         home.setOnClickListener(new View.OnClickListener() {
             @Override
