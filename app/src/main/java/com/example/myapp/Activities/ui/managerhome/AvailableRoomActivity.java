@@ -85,21 +85,9 @@ public class AvailableRoomActivity extends AppCompatActivity {
 
                 });
 
-                Button btnView = new Button(this);
-                btnView.setText("View");
-                btnView.setOnClickListener(v -> {
-                    // Handle View Click
-                    // Intent or dialog to view room details
-                    Intent intent = new Intent(AvailableRoomActivity.this, ViewRoom.class);
-                    intent.putExtra("roomNumber",room.getRoomNumber());
-                    startActivity(intent);
-
-                });
-
                 row.addView(tvRoom);
                 row.addView(tvType);
                 row.addView(btnModify);
-                row.addView(btnView);
 
                 tableLayout.addView(row);
             }

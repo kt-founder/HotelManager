@@ -129,7 +129,7 @@ public class DBContext {
                 SQLiteHelper.Ccexpiry
         };
 
-        Cursor cursor = db.query(SQLiteHelper.System_users, columns, SQLiteHelper.Username + " LIKE ?", new String[]{username}, null, null, null);
+        Cursor cursor = db.query(SQLiteHelper.System_users, columns, SQLiteHelper.Username + " = ?", new String[]{username}, null, null, null);
         if (cursor != null && cursor.moveToFirst()) {
             Profile profile = new Profile();
                    profile.setUsername(cursor.getString(cursor.getColumnIndexOrThrow(SQLiteHelper.Username)));
