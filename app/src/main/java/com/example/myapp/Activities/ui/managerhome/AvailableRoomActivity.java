@@ -1,191 +1,115 @@
 package com.example.myapp.Activities.ui.managerhome;
 
-import android.app.DatePickerDialog;
-import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
-import android.text.InputType;
-import android.text.method.LinkMovementMethod;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.DatePicker;
-import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
-import android.widget.TimePicker;
 
-import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.myapp.Activities.MainActivity;
-import com.example.myapp.Activities.database.DBManager;
+import com.example.myapp.Activities.database.DBContext;
+import com.example.myapp.Activities.entities.Room;
+import com.example.myapp.Activities.ui.adminhome.AdminHomeActivity;
+import com.example.myapp.Activities.ui.usershome.ViewRoom;
 import com.example.myapp.R;
 
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.HashMap;
 import java.util.List;
 
 public class AvailableRoomActivity extends AppCompatActivity {
-    DatePickerDialog picker;
-    EditText eText,sText;
-    DBManager db;
-    Button modify_room,navigate_home,view_available_rooms,availLogout;
+    private DBContext dbContext;
+    private TableLayout tableLayout;
+    private Spinner spinner;
+    String type;
+    private Button homeButton, logoutButton, searchButton;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        EdgeToEdge.enable(this);
         setContentView(R.layout.activity_available_room);
 
-        availLogout = findViewById(R.id.availLogout);
+        dbContext = new DBContext(this);
+        dbContext.open();
+        spinner = findViewById(R.id.room_typ);
+        tableLayout = findViewById(R.id.room_table);
+        homeButton = findViewById(R.id.button8);
+        logoutButton = findViewById(R.id.availLogout);
+        searchButton = findViewById(R.id.avl_room_search_btn);  // Make sure you have this button in your layout
 
-        availLogout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(AvailableRoomActivity.this, MainActivity.class));
-            }
+        type = spinner.getSelectedItem().toString().trim();
+        // Setup buttons
+        homeButton.setOnClickListener(v -> startActivity(new Intent(this, ManagerHomeActivity.class)));
+        logoutButton.setOnClickListener(v -> startActivity(new Intent(this, MainActivity.class)));
+        searchButton.setOnClickListener(v -> {
+            type = spinner.getSelectedItem().toString().trim();
+            tableLayout.removeAllViews();  // Clear the table before repopulating
+            populateTable();
         });
 
-        navigate_home = (Button)findViewById(R.id.button8);
-        navigate_home.setMovementMethod(LinkMovementMethod.getInstance());
-        navigate_home.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(AvailableRoomActivity.this, ManagerHomeActivity.class);
-                startActivity(intent);
+        // Initially populate the table with available rooms
+        populateTable();
+    }
+
+    private void setupButtons() {
+
+    }
+
+    private void populateTable() {
+        List<Room> availableRooms = dbContext.getAvailableRooms(type); // Implement this method in DBContext
+        if (availableRooms != null && !availableRooms.isEmpty()) {
+            for (Room room : availableRooms) {
+                TableRow row = new TableRow(this);
+                row.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, TableRow.LayoutParams.WRAP_CONTENT));
+
+                TextView tvRoom = new TextView(this);
+                tvRoom.setText(room.getRoomNumber());
+                tvRoom.setGravity(View.TEXT_ALIGNMENT_CENTER);
+
+                TextView tvType = new TextView(this);
+                tvType.setText(room.getRoomType());
+                tvType.setGravity(View.TEXT_ALIGNMENT_CENTER);
+
+                Button btnModify = new Button(this);
+                btnModify.setText("Modify");
+                btnModify.setOnClickListener(v -> {
+
+                    // Handle Modify Click
+                    // Intent or dialog to modify room details
+                    Intent intent = new Intent(AvailableRoomActivity.this, ModifyRoomActivity.class);
+                    intent.putExtra("roomNumber",room.getRoomNumber());
+                    startActivity(intent);
+
+                });
+
+                Button btnView = new Button(this);
+                btnView.setText("View");
+                btnView.setOnClickListener(v -> {
+                    // Handle View Click
+                    // Intent or dialog to view room details
+                    Intent intent = new Intent(AvailableRoomActivity.this, ViewRoom.class);
+                    intent.putExtra("roomNumber",room.getRoomNumber());
+                    startActivity(intent);
+
+                });
+
+                row.addView(tvRoom);
+                row.addView(tvType);
+                row.addView(btnModify);
+                row.addView(btnView);
+
+                tableLayout.addView(row);
             }
-        });
-        eText=(EditText) findViewById(R.id.date_text);
-        eText.setInputType(InputType.TYPE_NULL);
-
-        eText.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                final Calendar cldr = Calendar.getInstance();
-                int day = cldr.get(Calendar.DAY_OF_MONTH);
-                int month = cldr.get(Calendar.MONTH);
-                int year = cldr.get(Calendar.YEAR);
-                // date picker dialog
-                picker = new DatePickerDialog(AvailableRoomActivity.this,
-                        new DatePickerDialog.OnDateSetListener() {
-                            @Override
-                            public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-                                eText.setText( (monthOfYear + 1) +  "/" + dayOfMonth + "/" + year);
-                            }
-                        }, year, month, day);
-                picker.show();
-            }
-        });
-
-        sText=(EditText) findViewById(R.id.time_text);
-        sText.setInputType(InputType.TYPE_NULL);
-        sText.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Calendar mcurrentTime = Calendar.getInstance();
-                int hour = mcurrentTime.get(Calendar.HOUR_OF_DAY);
-                int minute = mcurrentTime.get(Calendar.MINUTE);
-                TimePickerDialog mTimePicker;
-                mTimePicker = new TimePickerDialog(AvailableRoomActivity.this, new TimePickerDialog.OnTimeSetListener() {
-                    @Override
-                    public void onTimeSet(TimePicker timePicker, int selectedHour, int selectedMinute) {
-                        sText.setText(selectedHour + ":" + selectedMinute);
-                    }
-                }, hour, minute, false);//NO 24 hour time
-
-                mTimePicker.show();
-
-            }
-        });
-
-
-        view_available_rooms = findViewById(R.id.avl_room_search_btn);
-        view_available_rooms.setMovementMethod(LinkMovementMethod.getInstance());
-
-        view_available_rooms.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                // Intent roomintent = new Intent(Searchroom.this, Searchroom.class);
-                Log.i("inside oncick ","inside oncick");
-                eText = (EditText)findViewById( R.id.date_text );
-                sText = (EditText)findViewById( R.id.time_text );
-                List<HashMap<String,String>> roomMapList = new ArrayList<>();
-
-                Spinner mySpinner = (Spinner) findViewById(R.id.room_typ);
-                String roomType = mySpinner.getSelectedItem().toString();
-
-                String checkInDate =eText. getText(). toString();
-                String checkInTime = sText. getText(). toString();
-//                if(roomType != null && roomType.equalsIgnoreCase("All")) {
-//                    roomMapList = db.getAvailableRooms(checkInDate + " " + checkInTime);
-//                    Log.i("room type spinner " , roomType);
-//                }
-//                else
-//                {
-//                    roomMapList = db.getAvailableRoomsByType(checkInDate + " " + checkInTime , roomType);
-//                    Log.i("room type spinner " , roomType);
-//                }
-                HashMap<String, String> roomDetails1 = new HashMap<>();
-                roomDetails1.put("checkInDate", "2024-01-01");
-                roomDetails1.put("checkOutDate", "2024-01-05");
-                roomMapList.add(roomDetails1);
-
-                // Sample Data Entry 2
-                HashMap<String, String> roomDetails2 = new HashMap<>();
-                roomDetails2.put("checkInDate", "2024-02-01");
-                roomDetails2.put("checkOutDate", "2024-02-05");
-                roomMapList.add(roomDetails2);
-
-                // Sample Data Entry 3
-                HashMap<String, String> roomDetails3 = new HashMap<>();
-                roomDetails3.put("checkInDate", "2024-03-01");
-                roomDetails3.put("checkOutDate", "2024-03-05");
-                roomMapList.add(roomDetails3);
-                
-                TableLayout roomTableLayout = (TableLayout) findViewById(R.id.room_table);
-                for (final HashMap<String,String> map : roomMapList)
-                {
-                    TableRow row= new TableRow(getBaseContext());
-                    TableRow.LayoutParams lp = new TableRow.LayoutParams(TableRow.LayoutParams.WRAP_CONTENT);
-                    row.setLayoutParams(lp);
-                    TextView roomNumber = new TextView(getBaseContext());
-                    roomNumber.setText(map.get("RoomNumber"));
-                    final  String rnString = roomNumber.getText().toString();
-                    TextView room_Type = new TextView(getBaseContext());
-                    room_Type.setText(map.get("roomType"));
-                    Button modifyButton = new Button(getBaseContext());
-                    modifyButton.setText("modify");
-                    row.addView(roomNumber);
-                    row.addView(room_Type);
-                    row.addView(modifyButton);
-                    roomTableLayout.addView(row);
-
-                    // set some properties of rowTextView or something
-
-                    modifyButton.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View view) {
-
-                            Intent intent = new
-                                    Intent(AvailableRoomActivity.this, ModifyRoomActivity.class);
-                            intent.putExtra("roomNumber",rnString);
-                            intent.putExtra("roomPrice",map.get("room_price"));
-                            intent.putExtra("roomType",map.get("room_type"));
-                            startActivity(intent);
-                        }
-                    });
-
-                }
-
-
-
-
-
-                //startActivity(roomintent);
-            }
-        });
+        } else {
+            // Handle case when no available rooms are found
+            TableRow row = new TableRow(this);
+            TextView tvEmpty = new TextView(this);
+            tvEmpty.setText("No available rooms found.");
+            row.addView(tvEmpty);
+            tableLayout.addView(row);
+        }
     }
 }

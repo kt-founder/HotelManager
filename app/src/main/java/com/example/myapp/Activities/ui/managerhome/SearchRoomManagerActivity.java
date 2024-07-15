@@ -20,6 +20,7 @@ public class SearchRoomManagerActivity extends AppCompatActivity {
     TextView roomNumber, roomType, roomPrice, roomStatus;
     View detailRoom;
     DBContext dbContext;
+    Button checkOut;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,6 +34,7 @@ public class SearchRoomManagerActivity extends AppCompatActivity {
         roomPrice = findViewById(R.id.room_price);
         roomStatus = findViewById(R.id.room_status);
         detailRoom = findViewById(R.id.DetailRoom);
+        checkOut = findViewById(R.id.checkOut);
 
         dbContext = new DBContext(this);
         dbContext.open();
@@ -50,6 +52,13 @@ public class SearchRoomManagerActivity extends AppCompatActivity {
                         roomType.setText(room.getRoomType());
                         roomPrice.setText(room.getPricePerNight());
                         roomStatus.setText(room.getRoomStatus());
+                        checkOut.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                dbContext.updateRoomStatus(roomNum,"Available");
+                                Toast.makeText(SearchRoomManagerActivity.this, "Room come to Available", Toast.LENGTH_SHORT).show();
+                            }
+                        });
                         detailRoom.setVisibility(View.VISIBLE);
                     } else {
                         Toast.makeText(SearchRoomManagerActivity.this, "Room not found", Toast.LENGTH_SHORT).show();

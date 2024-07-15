@@ -14,6 +14,8 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 import com.example.myapp.Activities.MainActivity;
+import com.example.myapp.Activities.database.DBContext;
+import com.example.myapp.Activities.entities.Reservation;
 import com.example.myapp.R;
 
 public class ConfirmationActivity extends AppCompatActivity {
@@ -28,10 +30,11 @@ public class ConfirmationActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_confirmation);
-
-//        sharedpreferences = getSharedPreferences(SHARED_PREF_NAME,MODE_PRIVATE);
-//        final String bid = sharedpreferences.getString(paymentScreen.KEY_IDB,"");
-//        //final String role = sharedpreferences.getString(MainActivity.KEY_ROLE,"");
+        Intent intent = getIntent();
+        String bookingId = intent.getStringExtra("booking_id");
+        DBContext db = new DBContext(this);
+        db.open();
+        Reservation reservation = db.getReservationByBookingId(bookingId);
 
         logout = findViewById(R.id.confirmHome);
         home = findViewById(R.id.confirmLogout);
@@ -53,21 +56,27 @@ public class ConfirmationActivity extends AppCompatActivity {
         reserveNumChildre = findViewById(R.id.reserveNumChildren);
         reserveBooking = findViewById(R.id.reserveBooking);
 
+        hotelName.setText(reservation.getHotel_name());
+        hotelLocation.setText(reservation.getHotel_location());
+        cid.setText(reservation.getCheck_in_date());
+        // Complete it
 
-        hotelName.setFocusable(false);
-        hotelLocation.setFocusable(false);
-        cid.setFocusable(false);
-        cod.setFocusable(false);
-        nNights.setFocusable(false);
-        reserveNumRooms.setFocusable(false);
-        resNumAdults.setFocusable(false);
-        reserveNumChildre.setFocusable(false);
-        reserveBooking.setFocusable(false);
-        tax.setFocusable(false);
-        fn.setFocusable(false);
-        ln.setFocusable(false);
-        billedPrice.setFocusable(false);
-        billedAddr.setFocusable(false);
+        hotelName.setText(reservation.getHotel_name());
+        hotelLocation.setText(reservation.getHotel_location());
+        cid.setText(reservation.getCheck_in_date());
+        cod.setText(reservation.getCheck_out_date());
+        nNights.setText(reservation.getNumber_of_nights());
+        reserveNumRooms.setText(reservation.getRoomNumber());
+        resNumAdults.setText(reservation.getNumber_of_adults());
+        reserveNumChildre.setText(reservation.getNumber_of_children());
+        reserveBooking.setText(reservation.getBooking_id());
+        tax.setText(reservation.getTax());
+        billedPrice.setText(reservation.getBilled_price());
+        fn.setText(reservation.getFirst_name());
+        ln.setText(reservation.getLast_name());
+        billedAddr.setText(reservation.getBilling_address());
+
+        db.updateRoomStatus(reservation.getRoomNumber(),"Served");
 
         logout.setOnClickListener(new View.OnClickListener() {
             @Override

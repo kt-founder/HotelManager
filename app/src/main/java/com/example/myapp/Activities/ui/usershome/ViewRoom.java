@@ -3,6 +3,7 @@ package com.example.myapp.Activities.ui.usershome;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -47,16 +48,30 @@ public class ViewRoom extends AppCompatActivity {
 
         // Extract data from intent
         Intent intent = getIntent();
-        hotelName.setText(intent.getStringExtra("hotelName"));
-        hotelLocation.setText(intent.getStringExtra("hotelLocation"));
-        roomType.setText(intent.getStringExtra("roomType"));
-        nBeds.setText(intent.getStringExtra("numberOfBeds"));
-        rFacilities.setText(intent.getStringExtra("roomFacilities"));
-        cid.setText(intent.getStringExtra("checkInDate"));
-        cod.setText(intent.getStringExtra("checkOutDate"));
-        nNights.setText(intent.getStringExtra("numberOfNights"));
-        price.setText(intent.getStringExtra("pricePerNight"));
-        totalPrice.setText(intent.getStringExtra("totalPrice"));
+        String HotelName = intent.getStringExtra("hotelName");
+        String HotelLocation = intent.getStringExtra("hotelLocation");
+        String RoomType = intent.getStringExtra("roomType");
+        String NumBeds = intent.getStringExtra("numberOfBeds");
+        String RoomFacilites = intent.getStringExtra("roomFacilities");
+        String checkIn = intent.getStringExtra("checkInDate");
+        String checkOut = intent.getStringExtra("checkOutDate");
+        String numNights = intent.getStringExtra("numberOfNights");
+        String Price = intent.getStringExtra("pricePerNight");
+        String Total = String.valueOf(Double.parseDouble(Price) * Integer.parseInt(numNights));
+        String roomNum = intent.getStringExtra("roomNumber");
+        Log.e("Test",HotelName);
+        Log.e("Test",HotelLocation);
+        Log.e("Test",roomNum);
+        hotelName.setText(HotelName);
+        hotelLocation.setText(HotelLocation);
+        roomType.setText(RoomType);
+        nBeds.setText(NumBeds);
+        rFacilities.setText(RoomFacilites);
+        cid.setText(checkIn);
+        cod.setText(checkOut);
+        nNights.setText(numNights);
+        price.setText(Price);
+        totalPrice.setText(Total);
 
         home.setOnClickListener(view -> startActivity(new Intent(ViewRoom.this, userHomeActivity.class)));
 
@@ -65,8 +80,21 @@ public class ViewRoom extends AppCompatActivity {
         reserve.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(ViewRoom.this,ReverveRoomActivity.class);
-                startActivity(intent);
+                Intent intent1 = new Intent(ViewRoom.this,ReverveRoomActivity.class);
+
+                intent1.putExtra("hotelName",HotelName);
+
+                intent1.putExtra("hotelLocation", HotelLocation );
+                intent1.putExtra("roomType", RoomType);
+                intent1.putExtra("pricePerNight", Price);
+                intent1.putExtra("numberOfBeds", NumBeds);
+                intent1.putExtra("roomFacilities", RoomFacilites );
+                intent1.putExtra("checkInDate", checkIn);
+                intent1.putExtra("checkOutDate", checkOut);
+                intent1.putExtra("numberOfNights", numNights);
+                intent1.putExtra("totalPrice", Total);
+                intent1.putExtra("roomNumber",roomNum);
+                startActivity(intent1);
             }
         });
 
@@ -83,13 +111,6 @@ public class ViewRoom extends AppCompatActivity {
                 startActivity(new Intent(ViewRoom.this, MainActivity.class));
             }
         });
-        reserve.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
 
-                startActivity(new Intent(ViewRoom.this,ReverveRoomActivity.class));
-
-            }
-        });
     }
 }

@@ -1,6 +1,7 @@
 package com.example.myapp.Activities.ui.usershome;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -24,6 +25,9 @@ public class viewProfile extends AppCompatActivity {
     TextView errorMessage;
     DBContext dbContext;
     String username;
+
+    public static final String PREFS_NAME = "AppPrefs";
+    public static final String KEY_USERNAME = "username";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,7 +58,9 @@ public class viewProfile extends AppCompatActivity {
         dbContext.open();
 
         // Get the username from the intent
-        username = getIntent().getStringExtra("username");
+        SharedPreferences preferences = getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
+        String username = preferences.getString(KEY_USERNAME, "");
+        //username = getIntent().getStringExtra("username");
 
         // Load user data
         loadUserData();

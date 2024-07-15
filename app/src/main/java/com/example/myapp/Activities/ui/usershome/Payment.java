@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -13,24 +14,23 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import com.example.myapp.Activities.database.DBContext;
 import com.example.myapp.R;
 
 public class Payment extends AppCompatActivity {
     Button home,logout,pay;
     EditText cvv,name,staddr,city,state,zip;
-    SharedPreferences sharedpreferences;
 
-    public static final String SHARED_PREF_NAME = "mypref";
-    public static final String KEY_IDB = "booking_id";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_payment);
 
-//        sharedpreferences = getSharedPreferences(SHARED_PREF_NAME,MODE_PRIVATE);
-//        final String id = sharedpreferences.getString(reserveRoomScreen.KEY_BOOKING,"");
-//        final String penID = sharedpreferences.getString(PendingAdapter.KEY_BOOKINGPen,"");
+        DBContext dbContext = new DBContext(this);
+        dbContext.open();
+        Intent intent = getIntent();
+        String bookingId = intent.getStringExtra("booking_id");
 
         home = findViewById(R.id.paymentHome);
         logout = findViewById(R.id.paymentLogout);
@@ -46,49 +46,20 @@ public class Payment extends AppCompatActivity {
         pay.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Intent intent1 = new Intent(Payment.this,ConfirmationActivity.class);
 
-                String abc = staddr.getText().toString();
-                String hk = "Paid";
-                String ch = "Not Available";
-
-//                sharedpreferences = getSharedPreferences(SHARED_PREF_NAME,MODE_PRIVATE);
-//
-//                final String roomNumber = sharedpreferences.getString(viewRoomScreen.KEY_ROOMNUMBER,"");
-//                final String cid = sharedpreferences.getString(searchRoomScreen.KEY_CHECKINDATE,"");
-//                final String cod = sharedpreferences.getString(searchRoomScreen.KEY_CHECKOUTDATE,"");
+                boolean isUpdated = dbContext.updateReservationStatus(bookingId,"paid");
 
 
 
+                if (isUpdated) {
+                    Toast.makeText(getApplicationContext(), "Reservation status updated to paid!", Toast.LENGTH_SHORT).show();
+                    intent1.putExtra("booking_id",bookingId);
+                    startActivity(intent1);
+                } else {
+                    Toast.makeText(getApplicationContext(), "Failed to update reservation status.", Toast.LENGTH_SHORT).show();
+                }
 
-//                Room room = new Room(cid,cod,roomNumber,ch);
-//
-//                DBManager dbManager = new DBManager(paymentScreen.this);
-//                String fin = dbManager.updateReservationStatus(id,abc,hk);
-//
-//                String hkch = dbManager.updateResPending(penID,abc,hk);
-//
-//                dbManager.updateRoomTable(roomNumber,ch,cid,cod);
-
-//                if (fin == id)
-//                {
-//                    SharedPreferences.Editor session = sharedpreferences.edit();
-//                    session.putString(KEY_IDB, id);
-//
-//                    session.apply();
-//
-//                    startActivity(new Intent(Payment.this,confirmationScreen.class));
-//                }
-//
-//                if(hkch == penID)
-//                {
-//                    SharedPreferences.Editor session = sharedpreferences.edit();
-//                    session.putString(KEY_IDB, penID);
-//
-//                    session.apply();
-//
-//                    startActivity(new Intent(Payment.this,confirmationScreen.class));
-//                }
-                startActivity(new Intent(Payment.this,ConfirmationActivity.class));
             }
         });
 

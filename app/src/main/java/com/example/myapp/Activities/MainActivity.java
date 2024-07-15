@@ -1,6 +1,7 @@
 package com.example.myapp.Activities;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -18,6 +19,8 @@ import com.example.myapp.R;
 
 public class MainActivity extends AppCompatActivity {
 
+    public static final String PREFS_NAME = "AppPrefs";
+    public static final String KEY_USERNAME = "username";
     Button bt_signIn, bt_Register;
     EditText username, password;
     TextView reg_success, errorMessage;
@@ -69,6 +72,12 @@ public class MainActivity extends AppCompatActivity {
                                 break;
                         }
                         intent.putExtra("username", usernameText);
+                        SharedPreferences preferences = getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
+                        SharedPreferences.Editor editor = preferences.edit();
+
+                        // Now save it to SharedPreferences
+                        editor.putString(KEY_USERNAME, usernameText);
+                        editor.apply();
                         startActivity(intent);
                     }else {
                         errorMessage.setText("Invalid username or password");

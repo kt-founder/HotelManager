@@ -26,7 +26,7 @@ import java.util.ArrayList;
 public class SearchRoomActivity extends AppCompatActivity {
     Button home, logout, search;
     EditText cidate, codate;
-    Spinner Hloc, Hroom, HNroom;
+    Spinner Hloc, Hroom;
     ListView room_listView;
     SearchRoomAdapter searchRoomAdapter;
     ArrayList<Room> arrayList;
@@ -47,7 +47,6 @@ public class SearchRoomActivity extends AppCompatActivity {
         codate = findViewById(R.id.codate);
         Hloc = findViewById(R.id.Hloc);
         Hroom = findViewById(R.id.Hroom);
-        HNroom = findViewById(R.id.HNroom);
         room_listView = findViewById(R.id.room_listView);
 
         dbContext = new DBContext(this);
@@ -63,11 +62,6 @@ public class SearchRoomActivity extends AppCompatActivity {
                 R.array.room_type_array, android.R.layout.simple_spinner_item);
         adapterRoom.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         Hroom.setAdapter(adapterRoom);
-
-        ArrayAdapter<CharSequence> adapterNumRoom = ArrayAdapter.createFromResource(this,
-                R.array.noOfRooms, android.R.layout.simple_spinner_item);
-        adapterNumRoom.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        HNroom.setAdapter(adapterNumRoom);
 
         home.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -97,7 +91,7 @@ public class SearchRoomActivity extends AppCompatActivity {
         String location = Hloc.getSelectedItem().toString();
         String roomType = Hroom.getSelectedItem().toString();
 
-        if(cidate.getText().toString().matches("^(0[1-9]|[12][0-9]|3[01])/(0[1-9]|1[0-2])/([0-9]{4})$\n")||codate.getText().toString().matches("^(0[1-9]|[12][0-9]|3[01])/(0[1-9]|1[0-2])/([0-9]{4})$\n")){
+        if(!(cidate.getText().toString().matches("^(0[1-9]|[12][0-9]|3[01])/(0[1-9]|1[0-2])/([0-9]{4})$")&&codate.getText().toString().matches("^(0[1-9]|[12][0-9]|3[01])/(0[1-9]|1[0-2])/([0-9]{4})$"))){
             Toast.makeText(this,"Please input Date Format dd/MM/YYYY",Toast.LENGTH_SHORT).show();
             startActivity(new Intent(SearchRoomActivity.this, SearchRoomActivity.class));
         }

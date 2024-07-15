@@ -6,6 +6,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
@@ -62,6 +63,7 @@ public class AdminSearch extends AppCompatActivity {
                 Toast.makeText(AdminSearch.this, "Please enter a last name to search", Toast.LENGTH_SHORT).show();
             }
         });
+
     }
 
     @SuppressLint("Range")

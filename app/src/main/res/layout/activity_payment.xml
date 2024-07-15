@@ -2,6 +2,7 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:layout_marginTop="70dp"
     android:fillViewport="false">
     <LinearLayout
         android:orientation="vertical" android:layout_width="match_parent"
@@ -110,24 +111,24 @@
         <Button
             android:id="@+id/paymentPay"
             android:layout_width="150dp"
-            android:layout_height="40dp"
+            android:layout_height="48dp"
             android:layout_gravity="center"
             android:layout_marginTop="20dp"
             android:layout_marginBottom="20dp"
-            android:background="#ff8819"
+            android:background="#FF8819"
             android:text="PAY"
-            android:textColor="#ffffff" />
+            android:textColor="#FFFFFF" />
 
         <Button
             android:id="@+id/paymentHome"
             android:layout_width="150dp"
-            android:layout_height="40dp"
+            android:layout_height="48dp"
             android:layout_gravity="center"
             android:layout_marginTop="20dp"
             android:layout_marginBottom="20dp"
-            android:background="#ff8819"
+            android:background="#FF8819"
             android:text="Home"
-            android:textColor="#ffffff" />
+            android:textColor="#FFFFFF" />
 
 
         <Button
@@ -137,9 +138,9 @@
             android:layout_gravity="center"
             android:layout_marginTop="20dp"
             android:layout_marginBottom="20dp"
-            android:background="#ff8819"
+            android:background="#FF8819"
             android:text="Logout"
-            android:textColor="#ffffff" />
+            android:textColor="#FFFFFF" />
 
 
 

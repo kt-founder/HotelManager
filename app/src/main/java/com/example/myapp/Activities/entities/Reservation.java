@@ -150,26 +150,13 @@ public class Reservation {
 
     @Override
     public String toString() {
-        return "Reservation{" +
-                "booking_id='" + booking_id + '\'' +
-                ", hotel_name='" + hotel_name + '\'' +
-                ", hotel_location='" + hotel_location + '\'' +
-                ", room_type='" + room_type + '\'' +
-                ", number_of_rooms='" + number_of_rooms + '\'' +
-                ", number_of_nights='" + number_of_nights + '\'' +
-                ", number_of_adults='" + number_of_adults + '\'' +
-                ", number_of_children='" + number_of_children + '\'' +
-                ", check_in_date='" + check_in_date + '\'' +
-                ", check_out_date='" + check_out_date + '\'' +
-                ", price_per_night='" + price_per_night + '\'' +
-                ", tax='" + tax + '\'' +
-                ", total_price='" + total_price + '\'' +
-                ", billed_price='" + billed_price + '\'' +
-                ", billing_address='" + billing_address + '\'' +
-                ", first_name='" + first_name + '\'' +
-                ", last_name='" + last_name + '\'' +
-                ", reservation_date='" + reservation_date + '\'' +
-                '}';
+        return
+                "Booking id: '" + booking_id + '\n' +
+                "Hotel name: '" + hotel_name + '\n' +
+                "Room type: '" + room_type + '\n' + "Room_number: "+ number_of_rooms +'\n'+
+                "Check in date:'" + check_in_date + '\n'
+
+                ;
     }
 
 

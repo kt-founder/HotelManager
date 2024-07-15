@@ -2,6 +2,7 @@ package com.example.myapp.Activities.ui.adminhome;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -27,6 +28,8 @@ public class AdminProfileActivity extends AppCompatActivity {
     DBContext dbContext;
     String username;
 
+    public static final String PREFS_NAME = "AppPrefs";
+    public static final String KEY_USERNAME = "username";
     @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,7 +65,8 @@ public class AdminProfileActivity extends AppCompatActivity {
         dbContext.open();
 
         // Get the username from the intent
-        username = getIntent().getStringExtra("username");
+        SharedPreferences preferences = getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
+        username = preferences.getString(KEY_USERNAME, "");
 
         // Load user data
         loadUserData();
@@ -115,6 +119,7 @@ public class AdminProfileActivity extends AppCompatActivity {
                     }
                 }
             }
+
         } else {
             errorMessage.setText("User not found");
             errorMessage.setVisibility(View.VISIBLE);

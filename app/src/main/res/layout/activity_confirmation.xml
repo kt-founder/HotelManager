@@ -2,6 +2,7 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:layout_marginTop="40dp"
     android:fillViewport="false">
     <LinearLayout
         android:orientation="vertical" android:layout_width="match_parent"
@@ -186,6 +187,7 @@
         <EditText
             android:id="@+id/confirmBilledAddress"
             android:layout_width="300dp"
+            android:layout_marginLeft="20dp"
             android:layout_height="wrap_content" />
 
         <TextView
@@ -215,7 +217,8 @@
         <EditText
             android:id="@+id/confirmBilledPrice"
             android:layout_width="300dp"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"/>
 
         <TextView
 
@@ -229,7 +232,8 @@
         <EditText
             android:id="@+id/reserveBooking"
             android:layout_width="300dp"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"/>
 
 
 
@@ -240,9 +244,9 @@
             android:layout_gravity="center"
             android:layout_marginTop="20dp"
             android:layout_marginBottom="20dp"
-            android:background="#ff8819"
+            android:background="#FF8819"
             android:text="HOME"
-            android:textColor="#ffffff" />
+            android:textColor="#FFFFFF" />
 
         <Button
             android:id="@+id/confirmLogout"
@@ -251,10 +255,9 @@
             android:layout_gravity="center"
             android:layout_marginTop="20dp"
             android:layout_marginBottom="20dp"
-            android:background="#ff8819"
+            android:background="#FF8819"
             android:text="LOGOUT"
-            android:textColor="#ffffff" />
-
+            android:textColor="#FFFFFF" />
 
     </LinearLayout>
 </ScrollView>

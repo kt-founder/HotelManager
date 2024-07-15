@@ -6,6 +6,7 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layout_marginTop="80dp"
     tools:context=".Activities.ui.usershome.DetailReservationActivity"
     android:orientation="vertical"
     >
@@ -159,7 +160,7 @@
                 <TextView
                     android:padding="8dp"
                     android:textColor="#000000"
-                    android:text="Number of Rooms:"
+                    android:text="Room Number:"
                     android:textStyle="bold" />
 
                 <TextView

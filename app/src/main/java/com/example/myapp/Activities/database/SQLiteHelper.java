@@ -100,7 +100,8 @@ public class SQLiteHelper extends SQLiteOpenHelper {
 
         // Create Reservations Table
         String qry1 = "CREATE TABLE IF NOT EXISTS " + Reservations + " (" +
-                Booking_id + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                "id" + " INTEGER PRIMARY KEY AUTOINCREMENT, "+
+                Booking_id + " TEXT, " +
                 Hotel_name + " TEXT, " +
                 Hotel_location + " TEXT, " +
                 Room_type + " TEXT, " +
@@ -117,7 +118,7 @@ public class SQLiteHelper extends SQLiteOpenHelper {
                 Billing_address + " TEXT, " +
                 First_name + " TEXT, " +
                 Last_name + " TEXT, " +
-
+                Status +" TEXT, " +
 
                 Reservation_date + " TEXT)";
         db.execSQL(qry1);
@@ -175,7 +176,7 @@ public class SQLiteHelper extends SQLiteOpenHelper {
         roomFacilities[2] =  "WiFi, TV, Minibar";
 
         String roomStatus = "Available";
-        int roomNumber = 1;
+        int roomNumber = 100;
 
         for (int i = 0; i < hotelNames.length; i++) {
             String insertHotel = "INSERT INTO " + HotelDetails + " (" +

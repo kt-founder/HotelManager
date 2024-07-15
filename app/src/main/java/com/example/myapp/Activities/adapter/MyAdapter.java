@@ -20,8 +20,7 @@ import java.util.ArrayList;
 public class MyAdapter extends BaseAdapter {
     private Context context;
     private ArrayList<Profile> arrayList;
-    public static final String SHARED_PREF_NAME = "mypref";
-    public static final String KEY_UN = "username";
+
 
     public MyAdapter(Context context, ArrayList<Profile> arrayList) {
         this.context = context;
@@ -63,12 +62,10 @@ public class MyAdapter extends BaseAdapter {
         tvUsername.setText(profile.getUsername());
 
         btnView.setOnClickListener(v -> {
-            SharedPreferences sharedpreferences = context.getSharedPreferences(SHARED_PREF_NAME, Context.MODE_PRIVATE);
-            SharedPreferences.Editor editor = sharedpreferences.edit();
-            editor.putString(KEY_UN, profile.getUsername());
-            editor.apply();
 
             Intent intent = new Intent(context, AdminViewGuestActivity.class);
+            intent.putExtra("username",profile.getUsername());
+
             context.startActivity(intent);
         });
 

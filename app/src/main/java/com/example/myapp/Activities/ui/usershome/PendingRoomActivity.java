@@ -6,50 +6,57 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.Toast;
 
-import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 
 import com.example.myapp.Activities.MainActivity;
 import com.example.myapp.Activities.adapter.PendingAdapter;
+import com.example.myapp.Activities.database.DBContext;
 import com.example.myapp.Activities.entities.Reservation;
 import com.example.myapp.R;
 
 import java.util.ArrayList;
 
 public class PendingRoomActivity extends AppCompatActivity {
-    Button home,logout;
+    Button home, logout;
     ListView pendingList;
     PendingAdapter pendingAdapter;
-    ArrayList<Reservation> arrayList1;
+    DBContext dbContext;
+    String username; // Assume this is retrieved from SharedPreferences or passed via intent
+    public static final String PREFS_NAME = "AppPrefs";
+    public static final String KEY_USERNAME = "username";
 
-    SharedPreferences sharedpreferences;
-    public static final String SHARED_PREF_NAME = "mypref";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        EdgeToEdge.enable(this);
         setContentView(R.layout.activity_pending_room);
+
+        dbContext = new DBContext(this);
+        dbContext.open();
+
+        username = getUsername(); // Method to retrieve the username
+
+        ArrayList<Reservation> pendingReservations = dbContext.getPendingReservations(username);
+        if(pendingReservations.isEmpty()){
+            Toast.makeText(PendingRoomActivity.this,"Nothing to show",Toast.LENGTH_SHORT).show();
+        }
+
+        pendingList = findViewById(R.id.pendingList);
+        pendingAdapter = new PendingAdapter(this, pendingReservations);
+        pendingList.setAdapter(pendingAdapter);
 
         home = findViewById(R.id.pendingHome);
         logout = findViewById(R.id.pendingLogout);
-        home.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent a =new Intent(PendingRoomActivity.this, userHomeActivity.class);
-                startActivity(a);
-            }
-        });
-        logout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent a =new Intent(PendingRoomActivity.this, MainActivity.class);
-                startActivity(a);
-            }
-        });
 
+        home.setOnClickListener(v -> startActivity(new Intent(this, userHomeActivity.class)));
+        logout.setOnClickListener(v -> startActivity(new Intent(this, MainActivity.class)));
+    }
+
+    private String getUsername() {
+        // Retrieve username from SharedPreferences or intent
+        SharedPreferences preferences = getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
+        String username = preferences.getString(KEY_USERNAME, "");
+        return username; // Replace with actual retrieval logic
     }
 }

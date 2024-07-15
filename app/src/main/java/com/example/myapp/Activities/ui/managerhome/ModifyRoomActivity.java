@@ -16,18 +16,22 @@ import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.myapp.Activities.MainActivity;
+import com.example.myapp.Activities.database.DBContext;
 import com.example.myapp.R;
 
 public class ModifyRoomActivity extends AppCompatActivity {
     Button cancel_modify,availLogout,navigate_home;
     TextView rn ;
     EditText roomPrice;
+    Spinner rtSpinner, roomStatSp;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_modifi_room);
 
+        DBContext dbContext = new DBContext(this);
+        dbContext.open();
         Intent intent = getIntent();
         final String roomNumber = intent.getStringExtra("roomNumber");
         final String room_Price = intent.getStringExtra("roomPrice");
@@ -39,9 +43,27 @@ public class ModifyRoomActivity extends AppCompatActivity {
         cancel_modify.setMovementMethod(LinkMovementMethod.getInstance());
         cancel_modify.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(ModifyRoomActivity.this, AvailableRoomActivity.class);
-                startActivity(intent);
+            public void onClick(View v) {
+                String newRoomType = rtSpinner.getSelectedItem().toString();
+                String newRoomStatus = roomStatSp.getSelectedItem().toString();
+                String newRoomPrice = roomPrice.getText().toString();
+
+                if (newRoomPrice.isEmpty()) {
+                    Toast.makeText(getApplicationContext(), "Please enter a valid room price", Toast.LENGTH_LONG).show();
+                    return;
+                }
+
+                try {
+                    double price = Double.parseDouble(newRoomPrice);
+                    if (dbContext.updateRoomDetails(roomNumber, price, newRoomStatus, newRoomType)) {
+                        Toast.makeText(getApplicationContext(), "Modified Room Details Successfully", Toast.LENGTH_LONG).show();
+                        startActivity(new Intent(ModifyRoomActivity.this, AvailableRoomActivity.class));
+                    } else {
+                        Toast.makeText(getApplicationContext(), "Failed to update room details", Toast.LENGTH_LONG).show();
+                    }
+                } catch (NumberFormatException e) {
+                    Toast.makeText(getApplicationContext(), "Invalid price format", Toast.LENGTH_LONG).show();
+                }
             }
         });
 
