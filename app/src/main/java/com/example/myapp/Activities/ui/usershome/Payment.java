@@ -50,8 +50,6 @@ public class Payment extends AppCompatActivity {
 
                 boolean isUpdated = dbContext.updateReservationStatus(bookingId,"paid");
 
-
-
                 if (isUpdated) {
                     Toast.makeText(getApplicationContext(), "Reservation status updated to paid!", Toast.LENGTH_SHORT).show();
                     intent1.putExtra("booking_id",bookingId);

@@ -152,6 +152,7 @@ public class SQLiteHelper extends SQLiteOpenHelper {
                 NRDate + " TEXT, " +
                 NREndDate + " TEXT)";
         db.execSQL(qry3);
+
         addDefaultHotelsAndRooms(db);
     }
 

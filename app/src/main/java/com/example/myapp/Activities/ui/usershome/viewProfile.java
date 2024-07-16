@@ -59,7 +59,7 @@ public class viewProfile extends AppCompatActivity {
 
         // Get the username from the intent
         SharedPreferences preferences = getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
-        String username = preferences.getString(KEY_USERNAME, "");
+        username = preferences.getString(KEY_USERNAME, "");
         //username = getIntent().getStringExtra("username");
 
         // Load user data
